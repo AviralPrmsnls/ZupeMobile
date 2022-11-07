@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zupe/constant/constant.dart';
+import 'package:zupe/pages/homePage/homePage.dart';
 import 'package:zupe/service/provider.dart';
 
 class TabBarHeader extends StatefulWidget {
@@ -22,6 +23,7 @@ class _TabBarHeaderState extends State<TabBarHeader> {
         setState(() {
           Provider.of<TabBarProvider>(context, listen: false).SelectPage =
               widget.tabNumber;
+          caraousalControler.jumpToPage(widget.tabNumber - 1);
         });
       },
       child: SizedBox(
@@ -35,7 +37,7 @@ class _TabBarHeaderState extends State<TabBarHeader> {
               Text(
                 widget.text,
                 style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                     color: Provider.of<TabBarProvider>(context).selectPage ==
                             widget.tabNumber
                         ? Colors.white
@@ -45,7 +47,7 @@ class _TabBarHeaderState extends State<TabBarHeader> {
               Padding(
                 padding: const EdgeInsets.only(left: 4.0, right: 4),
                 child: Container(
-                  height: 4,
+                  height: 3,
                   width: w,
                   decoration: BoxDecoration(
                       color: Provider.of<TabBarProvider>(context).selectPage ==

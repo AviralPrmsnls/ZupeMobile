@@ -1,3 +1,4 @@
+import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+PageController caraousalControler = PageController();
+
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text(
           "Zupe",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22),
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 20),
         ),
         centerTitle: false,
         actions: const [
@@ -60,14 +63,20 @@ class _HomePageState extends State<HomePage> {
             )),
       ),
       floatingActionButton: Container(
-        height: 45,
-        width: 45,
+        height: 50,
+        width: 50,
         decoration: BoxDecoration(
             color: kAppBarPrimaryColor,
             borderRadius: BorderRadius.circular(30)),
-        child: const Center(
+        child: Center(
           child: Icon(
-            Icons.chat,
+            Provider.of<TabBarProvider>(context, listen: false).selectPage == 1
+                ? Icons.chat
+                : Provider.of<TabBarProvider>(context, listen: false)
+                            .selectPage ==
+                        2
+                    ? Icons.camera_alt
+                    : Icons.add_call,
             color: Colors.white,
             size: 20,
           ),
@@ -75,12 +84,57 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          if (Provider.of<TabBarProvider>(context).selectPage == 1)
-            const ChatsPage(),
-          if (Provider.of<TabBarProvider>(context).selectPage == 2)
-            const StatusPage(),
-          if (Provider.of<TabBarProvider>(context).selectPage == 3)
-            const CallsPage(),
+          Expanded(
+            child: BannerCarousel(
+              pageController: caraousalControler,
+              onPageChanged: (value) {
+                setState(() {
+                  Provider.of<TabBarProvider>(context, listen: false)
+                      .SelectPage = value + 1;
+                });
+              },
+              margin: const EdgeInsets.only(left: 0, right: 0),
+              customizedBanners: [ChatsPage(), StatusPage(), CallsPage()],
+              height: h,
+              activeColor: Colors.transparent,
+              disableColor: Colors.transparent,
+              animation: true,
+              borderRadius: 0,
+              width: w,
+              indicatorBottom: false,
+            ),
+          ),
+          // if (Provider.of<TabBarProvider>(context).selectPage == 1)
+          //   Expanded(
+          //     child: SwipeDetector(
+          //         onSwipeLeft: () {
+          //           Provider.of<TabBarProvider>(context, listen: false)
+          //               .SelectPage = 2;
+          //         },
+          //         child: const ChatsPage()),
+          //   ),
+          // if (Provider.of<TabBarProvider>(context).selectPage == 2)
+          //   Expanded(
+          //     child: SwipeDetector(
+          //         onSwipeRight: () {
+          //           Provider.of<TabBarProvider>(context, listen: false)
+          //               .SelectPage = 1;
+          //         },
+          //         onSwipeLeft: () {
+          //           Provider.of<TabBarProvider>(context, listen: false)
+          //               .SelectPage = 3;
+          //         },
+          //         child: const StatusPage()),
+          //   ),
+          // if (Provider.of<TabBarProvider>(context).selectPage == 3)
+          //   Expanded(
+          //     child: SwipeDetector(
+          //         onSwipeRight: () {
+          //           Provider.of<TabBarProvider>(context, listen: false)
+          //               .SelectPage = 2;
+          //         },
+          //         child: const CallsPage()),
+          //   ),
         ],
       ),
     );
