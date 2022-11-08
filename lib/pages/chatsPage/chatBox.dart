@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:zupe/constant/constant.dart';
+import 'package:zupe/pages/chatsPage/chatProfilePage.dart';
 import 'package:zupe/pages/homePage/calls.dart';
 import 'package:zupe/pages/homePage/chats.dart';
 import 'package:zupe/pages/homePage/status.dart';
@@ -43,14 +44,25 @@ class _ChatBoxState extends State<ChatBox> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0, top: 8),
-              child: CircleAvatar(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    "assets/images/dp.png",
-                    height: 55,
-                    width: 55,
-                    fit: BoxFit.cover,
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChatProfilePage()),
+                    );
+                  });
+                },
+                child: CircleAvatar(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      "assets/images/dp.png",
+                      height: 55,
+                      width: 55,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -58,9 +70,19 @@ class _ChatBoxState extends State<ChatBox> {
             const SizedBox(
               width: 10,
             ),
-            const Text(
-              "Ryan Reynolds",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatProfilePage()),
+                  );
+                });
+              },
+              child: const Text(
+                "Ryan Reynolds",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+              ),
             ),
           ],
         ),
@@ -103,14 +125,14 @@ class _ChatBoxState extends State<ChatBox> {
                       const SizedBox(
                         height: 100,
                       ),
+                      RepliedMessage("HI Ryan Reynolds"),
+                      ReceivedMessage("Hi Zupe"),
+                      ReceivedMessage("How you Doing?"),
+                      RepliedMessage("I am good !"),
+                      RepliedMessage("What About You ?"),
+                      ReceivedMessage("I am Great 😁!"),
                       for (int i = 0; i < repliedMessageList.length; i++)
                         RepliedMessage(repliedMessageList[i]),
-                      // RepliedMessage("HI Ryan Reynolds"),
-                      // ReceivedMessage("Hi Zupe"),
-                      // ReceivedMessage("How you Doing?"),
-                      // RepliedMessage("I am good !"),
-                      // RepliedMessage("What About You ?"),
-                      // ReceivedMessage("I am Great 😁!"),
                     ],
                   ),
                 ),
