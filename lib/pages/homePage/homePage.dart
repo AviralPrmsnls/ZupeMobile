@@ -6,6 +6,7 @@ import 'package:zupe/constant/constant.dart';
 import 'package:zupe/pages/homePage/calls.dart';
 import 'package:zupe/pages/homePage/chats.dart';
 import 'package:zupe/pages/homePage/status.dart';
+import 'package:zupe/pages/settingsPage/settingPage.dart';
 import 'package:zupe/service/provider.dart';
 import 'package:zupe/widgets/tabBarHeader.dart';
 
@@ -32,12 +33,21 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white, fontWeight: FontWeight.w700, fontSize: 20),
         ),
         centerTitle: false,
-        actions: const [
-          Icon(Icons.search),
-          SizedBox(
+        actions: [
+          const Icon(Icons.search),
+          const SizedBox(
             width: 10,
           ),
-          Icon(Icons.more_vert),
+          InkWell(
+              onTap: () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SettingPage()),
+                  );
+                });
+              },
+              child: Icon(Icons.more_vert)),
           SizedBox(
             width: 10,
           ),
@@ -104,37 +114,6 @@ class _HomePageState extends State<HomePage> {
               indicatorBottom: false,
             ),
           ),
-          // if (Provider.of<TabBarProvider>(context).selectPage == 1)
-          //   Expanded(
-          //     child: SwipeDetector(
-          //         onSwipeLeft: () {
-          //           Provider.of<TabBarProvider>(context, listen: false)
-          //               .SelectPage = 2;
-          //         },
-          //         child: const ChatsPage()),
-          //   ),
-          // if (Provider.of<TabBarProvider>(context).selectPage == 2)
-          //   Expanded(
-          //     child: SwipeDetector(
-          //         onSwipeRight: () {
-          //           Provider.of<TabBarProvider>(context, listen: false)
-          //               .SelectPage = 1;
-          //         },
-          //         onSwipeLeft: () {
-          //           Provider.of<TabBarProvider>(context, listen: false)
-          //               .SelectPage = 3;
-          //         },
-          //         child: const StatusPage()),
-          //   ),
-          // if (Provider.of<TabBarProvider>(context).selectPage == 3)
-          //   Expanded(
-          //     child: SwipeDetector(
-          //         onSwipeRight: () {
-          //           Provider.of<TabBarProvider>(context, listen: false)
-          //               .SelectPage = 2;
-          //         },
-          //         child: const CallsPage()),
-          //   ),
         ],
       ),
     );

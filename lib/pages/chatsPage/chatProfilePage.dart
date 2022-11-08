@@ -398,24 +398,20 @@ class _ChatProfilePageState extends State<ChatProfilePage> {
                         height: 5,
                       ),
                       Row(
-                        children: [
-                          Row(
-                            children: const [
-                              Icon(
-                                Icons.music_note,
-                                color: kGreyColor,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Custom Notifications",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
-                              ),
-                            ],
+                        children: const [
+                          Icon(
+                            Icons.music_note,
+                            color: kGreyColor,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Custom Notifications",
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
                           ),
                         ],
                       ),
@@ -423,24 +419,20 @@ class _ChatProfilePageState extends State<ChatProfilePage> {
                         height: 15,
                       ),
                       Row(
-                        children: [
-                          Row(
-                            children: const [
-                              Icon(
-                                Icons.image,
-                                color: kGreyColor,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Media visibility",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
-                              ),
-                            ],
+                        children: const [
+                          Icon(
+                            Icons.image,
+                            color: kGreyColor,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Media visibility",
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
                           ),
                         ],
                       )
@@ -461,8 +453,10 @@ class _ChatProfilePageState extends State<ChatProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Icon(
                                 Icons.lock,
@@ -502,22 +496,37 @@ class _ChatProfilePageState extends State<ChatProfilePage> {
                         height: 15,
                       ),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            children: const [
-                              Icon(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(
                                 Icons.timer,
                                 color: kGreyColor,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
-                              Text(
-                                "Disappearing messages",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    "Disappearing messages",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black),
+                                  ),
+                                  Text(
+                                    "Off",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -528,7 +537,210 @@ class _ChatProfilePageState extends State<ChatProfilePage> {
                 ),
               ),
               const SizedBox(
-                height: 80,
+                height: 10,
+              ),
+              Card(
+                color: Color.fromRGBO(255, 255, 255, 1),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                    bottom: 15,
+                    left: 10.0,
+                    right: 10,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "No groups in common",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromARGB(255, 143, 142, 142)),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 16,
+                            backgroundColor: kAppBarPrimaryColor,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: const Icon(
+                                  Icons.group,
+                                  size: 18,
+                                  color: Colors.white,
+                                )),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Flexible(
+                            child: Text(
+                              "Create group with Ryan Reynolds",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Card(
+                color: Color.fromRGBO(255, 255, 255, 1),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                    bottom: 15,
+                    left: 10.0,
+                    right: 10,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Other phones",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromARGB(255, 143, 142, 142)),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "+91 7007 042 761",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black),
+                              ),
+                              Text(
+                                "Mobile",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: kGreyColor),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: const [
+                              Icon(
+                                Icons.chat,
+                                size: 20,
+                                color: kAppBarPrimaryColor,
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Icon(
+                                Icons.call,
+                                size: 20,
+                                color: kAppBarPrimaryColor,
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Icon(
+                                Icons.video_call,
+                                size: 20,
+                                color: kAppBarPrimaryColor,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Card(
+                color: Color.fromRGBO(255, 255, 255, 1),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 10.0, right: 10, top: 15, bottom: 15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.block,
+                            size: 25,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Block Ryan Reynolds",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.red),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.thumb_down,
+                            size: 25,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Report Ryan Reynolds",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.red),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 50,
               )
             ]),
           ),
