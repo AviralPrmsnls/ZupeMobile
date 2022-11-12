@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:zupe/constant/constant.dart';
-import 'package:custom_switch/custom_switch.dart';
 
 class ChatProfilePage extends StatefulWidget {
   const ChatProfilePage({Key? key}) : super(key: key);

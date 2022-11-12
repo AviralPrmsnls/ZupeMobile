@@ -1,4 +1,3 @@
-import 'package:emoji_keyboard_flutter/emoji_keyboard_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
