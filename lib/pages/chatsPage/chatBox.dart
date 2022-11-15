@@ -28,7 +28,7 @@ class _ChatBoxState extends State<ChatBox> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kAppBarPrimaryColor,
+        backgroundColor: kchatPageColor,
         title: Row(
           children: [
             InkWell(
@@ -67,7 +67,7 @@ class _ChatBoxState extends State<ChatBox> {
               ),
             ),
             const SizedBox(
-              width: 10,
+              width: 15,
             ),
             InkWell(
               onTap: () {
@@ -79,29 +79,36 @@ class _ChatBoxState extends State<ChatBox> {
                 });
               },
               child: const Text(
-                "Ryan Reynolds",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                "Peter Parker",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: "Satoshi",
+                    fontWeight: FontWeight.w400),
               ),
             ),
           ],
         ),
         centerTitle: false,
-        actions: const [
-          Icon(Icons.video_call),
-          SizedBox(
+        actions: [
+          Image.asset(
+            "assets/images/videoCallIcon.png",
+            height: 20,
+            width: 40,
+          ),
+          const SizedBox(
             width: 15,
           ),
-          Icon(Icons.call),
-          SizedBox(
+          const Icon(Icons.call),
+          const SizedBox(
             width: 15,
           ),
-          Icon(Icons.more_vert),
-          SizedBox(
+          const Icon(Icons.more_vert),
+          const SizedBox(
             width: 10,
           ),
         ],
       ),
-      backgroundColor: Color.fromARGB(255, 181, 235, 241),
+      backgroundColor: kchatPageColor,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -124,12 +131,64 @@ class _ChatBoxState extends State<ChatBox> {
                       const SizedBox(
                         height: 100,
                       ),
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 45,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(
+                                "assets/images/dp.png",
+                                height: 90,
+                                width: 90,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Text(
+                            "Peter Parker",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Satoshi",
+                                fontSize: 20),
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          const Text(
+                            "+91 90045 63546",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Satoshi",
+                                fontSize: 15),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      const Text(
+                        "Friday, May 13",
+                        style: TextStyle(
+                            color: Colors.white60,
+                            fontFamily: "Satoshi",
+                            fontSize: 15),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       RepliedMessage("HI Ryan Reynolds"),
                       ReceivedMessage("Hi Zupe"),
                       ReceivedMessage("How you Doing?"),
                       RepliedMessage("I am good !"),
                       RepliedMessage("What About You ?"),
                       ReceivedMessage("I am Great 😁!"),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       for (int i = 0; i < repliedMessageList.length; i++)
                         RepliedMessage(repliedMessageList[i]),
                     ],
@@ -141,12 +200,12 @@ class _ChatBoxState extends State<ChatBox> {
 
           Positioned(
               bottom: 10,
-              left: 5,
+              left: 20,
               child: Row(
                 children: [
                   Container(
-                    width: w - 65,
-                    height: 55,
+                    width: w - 100,
+                    height: 50,
                     child: TextFormField(
                       onFieldSubmitted: (value) {
                         if (istyped) {
@@ -170,10 +229,11 @@ class _ChatBoxState extends State<ChatBox> {
                       },
                       maxLines: 1,
                       textAlignVertical: TextAlignVertical.center,
-                      autofocus: true,
+                      autofocus: false,
                       cursorColor: Colors.green,
                       style: const TextStyle(
-                          color: Colors.black,
+                          fontFamily: "Satoshi",
+                          color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.w400),
                       decoration: InputDecoration(
@@ -185,59 +245,60 @@ class _ChatBoxState extends State<ChatBox> {
                             },
                             child: const Icon(
                               Icons.emoji_emotions,
-                              color: Colors.grey,
+                              color: Colors.white,
                             ),
                           ),
-                          suffix: Container(
-                            width: istyped ? 40 : 60,
-                            height: 55,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 14.0),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(top: 0.0, right: 10),
+                            child: Container(
+                              width: 60,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
                                   const Icon(
-                                    Icons.attach_file,
-                                    color: Colors.grey,
+                                    Icons.camera_alt,
+                                    color: Colors.white,
                                   ),
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  if (!istyped)
-                                    const Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.grey,
-                                    )
+                                  const Icon(
+                                    Icons.mic,
+                                    color: Colors.white,
+                                  )
                                 ],
                               ),
                             ),
                           ),
                           hintText: "Message",
                           hintStyle: const TextStyle(
-                              color: Color.fromARGB(149, 6, 6, 6),
+                              color: Color.fromRGBO(91, 91, 91, 1),
                               fontSize: 15),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color: Colors.white, width: 1.0),
+                                color: Color.fromRGBO(45, 41, 40, 1),
+                                width: 1.0),
                             borderRadius: BorderRadius.circular(35.0),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color: Colors.white, width: 1.0),
+                                color: Color.fromRGBO(45, 41, 40, 1),
+                                width: 1.0),
                             borderRadius: BorderRadius.circular(35.0),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color: Colors.white, width: 1.0),
+                                color: Color.fromRGBO(45, 41, 40, 1),
+                                width: 1.0),
                             borderRadius: BorderRadius.circular(35.0),
                           ),
-                          fillColor: Colors.white,
+                          fillColor: Color.fromRGBO(45, 41, 40, 1),
                           filled: true),
                     ),
                   ),
                   const SizedBox(
-                    width: 5,
+                    width: 15,
                   ),
                   InkWell(
                     onTap: () {
@@ -249,15 +310,15 @@ class _ChatBoxState extends State<ChatBox> {
                       }
                     },
                     child: Container(
-                      height: 55,
-                      width: 55,
+                      height: 42,
+                      width: 42,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(35),
-                          color: kAppBarPrimaryColor),
+                          color: kNeonColor),
                       child: Center(
                         child: Icon(
-                          istyped ? Icons.send : Icons.mic,
-                          color: Colors.white,
+                          istyped ? Icons.add : Icons.add,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -285,8 +346,8 @@ class _ChatBoxState extends State<ChatBox> {
             const EdgeInsets.only(bottom: 2.0, top: 2, left: 10, right: 80),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color.fromARGB(255, 243, 249, 243)),
+              borderRadius: BorderRadius.circular(15),
+              color: kRecievedMessageColor),
           child: Padding(
               padding: const EdgeInsets.only(
                   top: 5.0, left: 10, right: 10, bottom: 5),
@@ -296,11 +357,16 @@ class _ChatBoxState extends State<ChatBox> {
                       children: [
                         Text(
                           text,
-                          style: TextStyle(fontSize: 15),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Satoshi",
+                              fontSize: 16),
                         ),
-                        Text(
+                        const Text(
                           "12:30 pm",
-                          style: TextStyle(fontSize: 11, color: Colors.grey),
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: Color.fromRGBO(255, 255, 255, .6)),
                         )
                       ],
                     )
@@ -310,14 +376,19 @@ class _ChatBoxState extends State<ChatBox> {
                       children: [
                         Text(
                           text,
-                          style: TextStyle(fontSize: 15),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Satoshi",
+                              fontSize: 16),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text(
+                        const Text(
                           "12:30 pm",
-                          style: TextStyle(fontSize: 11, color: Colors.grey),
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: Color.fromRGBO(255, 255, 255, .6)),
                         )
                       ],
                     )),
@@ -336,8 +407,8 @@ class _ChatBoxState extends State<ChatBox> {
           onLongPress: () {},
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Color.fromARGB(255, 198, 237, 199)),
+                borderRadius: BorderRadius.circular(15),
+                color: kRepliedMessageColor),
             child: Padding(
                 padding: const EdgeInsets.only(
                     top: 5.0, left: 10, right: 10, bottom: 5),
@@ -347,12 +418,32 @@ class _ChatBoxState extends State<ChatBox> {
                         children: [
                           Text(
                             text,
-                            style: TextStyle(fontSize: 15),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Satoshi",
+                                fontSize: 16),
                           ),
-                          Text(
-                            "12:30 pm",
-                            style: TextStyle(fontSize: 11, color: Colors.grey),
-                          )
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: const [
+                              Text("12:30 pm",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color:
+                                          Color.fromRGBO(255, 255, 255, .6))),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.done_all,
+                                size: 14,
+                                color: kgreenTickColor,
+                              )
+                            ],
+                          ),
                         ],
                       )
                     : Row(
@@ -361,15 +452,32 @@ class _ChatBoxState extends State<ChatBox> {
                         children: [
                           Text(
                             text,
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Satoshi",
+                                fontSize: 16),
                           ),
                           SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            "12:30 pm",
-                            style: TextStyle(fontSize: 11, color: Colors.grey),
-                          )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: const [
+                              Text("12:30 pm",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color:
+                                          Color.fromRGBO(255, 255, 255, .6))),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.done_all,
+                                size: 14,
+                                color: kgreenTickColor,
+                              )
+                            ],
+                          ),
                         ],
                       )),
           ),
