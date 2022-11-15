@@ -215,6 +215,10 @@ class _HomePageModifiedState extends State<HomePageModified> {
   Stack SearchBox(double w, double h) {
     return Stack(
       children: [
+        SizedBox(
+          height: h,
+          width: w,
+        ),
         Positioned(
           bottom: 33,
           left: w * .07,
@@ -226,7 +230,7 @@ class _HomePageModifiedState extends State<HomePageModified> {
                 borderRadius: BorderRadius.circular(35)),
             width: w * .86,
             child: isResultFound
-                ? SearchResults()
+                ? SearchResults(w)
                 : const Center(
                     child: Text(
                       "No Result Found !!",
@@ -299,7 +303,7 @@ class _HomePageModifiedState extends State<HomePageModified> {
     );
   }
 
-  Padding SearchResults() {
+  Padding SearchResults(double w) {
     return Padding(
       padding: const EdgeInsets.only(left: 22.0, right: 22, top: 2, bottom: 2),
       child: SingleChildScrollView(
@@ -320,7 +324,7 @@ class _HomePageModifiedState extends State<HomePageModified> {
             const SizedBox(
               height: 10,
             ),
-            SearchGroupCard(),
+            SearchGroupCard(w),
             const Text(
               "Contacts",
               style: TextStyle(
@@ -332,10 +336,10 @@ class _HomePageModifiedState extends State<HomePageModified> {
             const SizedBox(
               height: 10,
             ),
-            SearchIndividualCard(),
-            SearchIndividualCard(),
-            SearchIndividualCard(),
-            SearchIndividualCard(),
+            SearchIndividualCard(w),
+            SearchIndividualCard(w),
+            SearchIndividualCard(w),
+            SearchIndividualCard(w),
             const SizedBox(
               height: 60,
             ),
@@ -345,111 +349,109 @@ class _HomePageModifiedState extends State<HomePageModified> {
     );
   }
 
-  Widget SearchGroupCard() {
+  Widget SearchGroupCard(double w) {
     return SizedBox(
       height: 50,
-      child: Expanded(
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 17,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.asset(
-                  "assets/images/permissionless.png",
-                  height: 34,
-                  width: 34,
-                  fit: BoxFit.fill,
-                ),
+      width: w,
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 17,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.asset(
+                "assets/images/permissionless.png",
+                height: 34,
+                width: 34,
+                fit: BoxFit.fill,
               ),
             ),
-            const SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    "Marketing Prmlsns",
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  "Marketing Prmlsns",
+                  style: TextStyle(
+                      fontFamily: "Satoshi",
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                Expanded(
+                  child: Text(
+                    "Pritesh: Hey Guys, Chief is speaking at ..",
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontFamily: "Satoshi",
-                        color: Colors.white,
-                        fontSize: 16,
+                        color: Color.fromRGBO(100, 100, 100, 1),
+                        fontSize: 12,
                         fontWeight: FontWeight.w500),
                   ),
-                  Expanded(
-                    child: Text(
-                      "Pritesh: Hey Guys, Chief is speaking at ..",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontFamily: "Satoshi",
-                          color: Color.fromRGBO(100, 100, 100, 1),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
 
-  Widget SearchIndividualCard() {
+  Widget SearchIndividualCard(double w) {
     return SizedBox(
       height: 50,
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 17,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.asset(
-                  "assets/images/story2.png",
-                  height: 34,
-                  width: 34,
-                  fit: BoxFit.fill,
-                ),
+      width: w,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 17,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.asset(
+                "assets/images/story2.png",
+                height: 34,
+                width: 34,
+                fit: BoxFit.fill,
               ),
             ),
-            const SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    "Mac",
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  "Mac",
+                  style: TextStyle(
+                      fontFamily: "Satoshi",
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                Expanded(
+                  child: Text(
+                    "Congratulations!",
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontFamily: "Satoshi",
-                        color: Colors.white,
-                        fontSize: 16,
+                        color: Color.fromRGBO(100, 100, 100, 1),
+                        fontSize: 12,
                         fontWeight: FontWeight.w500),
                   ),
-                  Expanded(
-                    child: Text(
-                      "Congratulations!",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontFamily: "Satoshi",
-                          color: Color.fromRGBO(100, 100, 100, 1),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
