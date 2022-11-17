@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  country_calling_code_picker:
+    dependency: "direct main"
+    description:
+      name: country_calling_code_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   crypto:
     dependency: transitive
     description:
@@ -125,6 +132,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_sim_country_code:
+    dependency: transitive
+    description:
+      name: flutter_sim_country_code
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -308,6 +322,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  story_time:
+    dependency: "direct main"
+    description:
+      name: story_time
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   stream_channel:
     dependency: transitive
     description:

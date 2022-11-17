@@ -44,6 +44,10 @@ dependencies:
   auto_scroll_text: ^0.0.5
   draggable_home: ^1.0.4
   firebase_core: ^2.2.0
+  story_time: ^1.0.6
+ 
+  country_calling_code_picker: ^2.0.1
+
   
  
 

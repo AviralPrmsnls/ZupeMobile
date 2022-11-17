@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:draggable_home/draggable_home.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:provider/provider.dart';
+
+import 'package:story_time/story_page_view/story_page_view.dart';
 import 'package:zupe/constant/constant.dart';
-import 'package:zupe/pages/chatsPage/chatBox.dart';
-import 'package:zupe/pages/homePage/chats.dart';
+import 'package:zupe/model/userModel.dart';
+
 import 'package:zupe/pages/settingsPage/settingPage.dart';
+import 'package:zupe/provider/storiesPageProvider.dart';
+import 'package:zupe/widgets/homepageWidgets/HeaderWidget.dart';
+import 'package:zupe/widgets/homepageWidgets/Stories.dart';
+import 'package:zupe/widgets/homepageWidgets/chatCard.dart';
 
 class HomePageModified extends StatefulWidget {
   HomePageModified({Key? key}) : super(key: key);
@@ -18,6 +25,49 @@ class _HomePageModifiedState extends State<HomePageModified> {
   bool isSearched = false;
   bool isArchived = false;
   bool isResultFound = false;
+  late ValueNotifier<IndicatorAnimationCommand> indicatorAnimationController;
+  final sampleUsers = [
+    UserModel([
+      StoryModel(
+          "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxN3x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+      StoryModel(
+          "https://images.unsplash.com/photo-1609418426663-8b5c127691f9?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+      StoryModel(
+          "https://images.unsplash.com/photo-1609444074870-2860a9a613e3?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1Nnx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+      StoryModel(
+          "https://images.unsplash.com/photo-1609504373567-acda19c93dc4?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1MHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+    ], "User1",
+        "https://images.unsplash.com/photo-1609262772830-0decc49ec18c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMDF8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+    UserModel([
+      StoryModel(
+          "https://images.unsplash.com/photo-1609439547168-c973842210e1?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Nnx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+    ], "User2",
+        "https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwzMjN8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+    UserModel([
+      StoryModel(
+          "https://images.unsplash.com/photo-1609421139394-8def18a165df?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDl8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+      StoryModel(
+          "https://images.unsplash.com/photo-1609377375732-7abb74e435d9?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxODJ8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+      StoryModel(
+          "https://images.unsplash.com/photo-1560925978-3169a42619b2?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMjF8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+    ], "User3",
+        "https://images.unsplash.com/photo-1609127102567-8a9a21dc27d8?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzOTh8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    indicatorAnimationController = ValueNotifier<IndicatorAnimationCommand>(
+      IndicatorAnimationCommand(resume: true),
+    );
+  }
+
+  @override
+  void dispose() {
+    indicatorAnimationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -25,199 +75,140 @@ class _HomePageModifiedState extends State<HomePageModified> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: DraggableHome(
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
+        curvedBodyRadius: 25,
+        stretchTriggerOffset: 200,
+        appBarColor: Color.fromRGBO(19, 19, 19, 1),
+        headerExpandedHeight: h < 741 ? 0.48 : 0.37,
+        fullyStretchable: true,
+        centerTitle: false,
+        title: Image.asset(
+          "assets/images/zupe.png",
+          height: 50,
+        ),
+        stretchMaxHeight: .92,
+        backgroundColor: const Color.fromRGBO(19, 19, 19, 1),
+        headerWidget: HeaderWidget(),
+        expandedBody: StoriesPage(sampleUsers: sampleUsers),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(top: 0.0, bottom: 0),
             child: InkWell(
               onTap: () {
                 setState(() {
-                  isSearched = true;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SettingPage()),
+                  );
                 });
               },
-              child: isSearched
-                  ? SearchBox(w, h)
-                  : Container(
-                      height: 75,
-                      width: 75,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(70),
-                          color: kFloatingbtnColor),
-                      child: const Center(
-                        child: Icon(
-                          Icons.search,
-                          color: kFloatingiconColor,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-            ),
-          ),
-          curvedBodyRadius: 25,
-          stretchTriggerOffset: 20,
-          appBarColor: Color.fromRGBO(19, 19, 19, 1),
-          headerExpandedHeight: h < 741 ? 0.48 : 0.37,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingPage()),
-                    );
-                  });
-                },
-                child: CircleAvatar(
-                  radius: 18,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
-                      "assets/images/dp3.png",
-                      height: 37,
-                      width: 37,
-                      fit: BoxFit.fill,
-                    ),
+              child: CircleAvatar(
+                radius: 18,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Image.asset(
+                    "assets/images/dp3.png",
+                    height: 37,
+                    width: 37,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
             ),
-            const Icon(
-              Icons.more_vert,
-              size: 35,
-            )
-          ],
-          alwaysShowLeadingAndAction: true,
-          // fullyStretchable: true,
-          alwaysShowTitle: true,
-          // expandedBody: Container(
-          //   height: h,
-          //   width: w,
-          // ),
-          centerTitle: false,
-          title: Image.asset(
-            "assets/images/zupe.png",
-            height: 50,
           ),
-          backgroundColor: const Color.fromRGBO(19, 19, 19, 1),
-          headerWidget: Container(
-            height: h,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/bg.png"),
-                    fit: BoxFit.fill)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "Story",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: w,
-                    height: 89,
-                    color: Colors.transparent,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 10.0,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 22.0),
-                            child: Container(
-                                height: 70,
-                                width: 70,
-                                decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/dp3.png")),
-                                    color: kdarkGreyColor,
-                                    borderRadius: BorderRadius.circular(70)),
-                                child: const Icon(
-                                  Icons.add,
-                                  size: 40,
-                                  color: Color.fromARGB(68, 255, 255, 255),
-                                )),
-                          ),
-                        ),
-                        for (int i = 0; i < 15; i++)
-                          (i % 2 == 0) ? Story() : seenStory(),
-                        const SizedBox(width: 15),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          body: [
-            SizedBox(
-              height: 6,
-              width: w,
-              child: Center(
-                  child: Container(
+          const Icon(
+            Icons.more_vert,
+            size: 35,
+          )
+        ],
+        body: [
+          Column(
+            children: [
+              SizedBox(
                 height: 6,
-                width: 80,
-                color: Colors.black,
-              )),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Recent Chat",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  // archiveBtn(),
-                ],
+                width: w,
+                child: Center(
+                    child: Container(
+                  height: 6,
+                  width: 80,
+                  color: Colors.black,
+                )),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            for (int i = 0; i < 10; i++)
-              InkWell(
-                  onTap: () {},
-                  child: ChatCard(
-                    index: i,
-                    Chatindex: Chatindex,
-                  ))
-          ]),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Recent Chat",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    // archiveBtn(),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              for (int i = 0; i < 10; i++)
+                InkWell(
+                    onTap: () {},
+                    child: HomeChatCard(
+                      index: i,
+                      Chatindex: Chatindex,
+                    ))
+            ],
+          ),
+        ],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton:
+            (Provider.of<StoriesProvider>(context).getStoriesPageOpen == true)
+                ? SizedBox()
+                : Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          isSearched = true;
+                        });
+                      },
+                      child: isSearched
+                          ? SearchBox(w, h)
+                          : Container(
+                              height: 75,
+                              width: 75,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(70),
+                                  color: kFloatingbtnColor),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.search,
+                                  color: kFloatingiconColor,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                    ),
+                  ),
+      ),
     );
   }
 
   Stack SearchBox(double w, double h) {
     return Stack(
       children: [
-        SizedBox(
-          height: h,
-          width: w,
+        InkWell(
+          onTap: () {
+            setState(() {
+              isSearched = false;
+            });
+          },
+          child: SizedBox(
+            height: h,
+            width: w,
+          ),
         ),
         Positioned(
           bottom: 33,
@@ -492,206 +483,6 @@ class _HomePageModifiedState extends State<HomePageModified> {
               )
             ],
           )),
-        ),
-      ),
-    );
-  }
-
-  Widget Story() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0),
-      child: Column(
-        children: [
-          Container(
-              height: 70,
-              width: 70,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(
-                    173,
-                    255,
-                    0,
-                    1,
-                  ),
-                  borderRadius: BorderRadius.circular(70)),
-              child: Center(
-                child: CircleAvatar(
-                  radius: 33,
-                  child: Image.asset(
-                    "assets/images/story2.png",
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              )),
-          const SizedBox(
-            height: 5,
-          ),
-          const Text(
-            "Sandy",
-            style: TextStyle(
-                color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget seenStory() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0),
-      child: Column(
-        children: [
-          Container(
-              height: 70,
-              width: 70,
-              decoration: BoxDecoration(
-                  color: kGreyColor, borderRadius: BorderRadius.circular(70)),
-              child: Center(
-                child: CircleAvatar(
-                  radius: 35,
-                  child: Image.asset(
-                    "assets/images/story2.png",
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              )),
-          const SizedBox(
-            height: 5,
-          ),
-          const Text(
-            "Sandy",
-            style: TextStyle(
-                color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ChatCard extends StatefulWidget {
-  ChatCard({Key? key, required this.Chatindex, required this.index})
-      : super(key: key);
-  int Chatindex;
-  int index;
-  @override
-  State<ChatCard> createState() => _ChatCardState();
-}
-
-class _ChatCardState extends State<ChatCard> {
-  @override
-  Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
-    return InkWell(
-      onTap: () {
-        setState(() {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ChatBox()),
-          );
-        });
-      },
-      child: Container(
-        height: 90,
-        width: w,
-        // color: Colors.amber,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset(
-                        "assets/images/dp.png",
-                        height: 80,
-                        width: 80,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 6.0,
-                      bottom: 6,
-                    ),
-                    child: SizedBox(
-                      height: 50,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: w - 120,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
-                                  "Peter Parker",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                Text(
-                                  "00:21",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: w - 120,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Ur Welcome :)",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromRGBO(98, 98, 98, 1)),
-                                ),
-                                Container(
-                                  height: 14,
-                                  width: 14,
-                                  decoration: BoxDecoration(
-                                      color: kNeonColor,
-                                      borderRadius: BorderRadius.circular(14)),
-                                  child: Center(
-                                    child: Text(
-                                      "1",
-                                      style: GoogleFonts.robotoFlex(
-                                          fontSize: 7,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const Divider(
-                thickness: 2,
-              )
-            ],
-          ),
         ),
       ),
     );

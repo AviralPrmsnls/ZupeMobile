@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:zupe/pages/FirstPage.dart';
 import 'package:zupe/pages/homePage/homePagemodified.dart';
+import 'package:zupe/pages/onboardingPages/onboardingPages.dart';
+import 'package:zupe/provider/otpSectionProvider.dart';
+
+import 'package:zupe/provider/storiesPageProvider.dart';
 import 'package:zupe/service/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/homePage/homePage.dart';
@@ -20,6 +24,8 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => TabBarProvider()),
+      ChangeNotifierProvider(create: (context) => StoriesProvider()),
+      ChangeNotifierProvider(create: (context) => OtpSectionProvider()),
     ],
     child: MyApp(),
   ));
@@ -36,6 +42,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: FirstPage());
+        home: OnBoardingPage());
+    // home: HomePage());
   }
 }
