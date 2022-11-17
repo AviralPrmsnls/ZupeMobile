@@ -140,14 +140,21 @@ class OTPDigitTextFieldBox extends StatelessWidget {
             padding: EdgeInsets.only(top: 00),
             child: Center(
               child: TextFormField(
+                controller: digitcontroller,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 autofocus: true,
-                onChanged: (value) {
+                onFieldSubmitted: (value) {
                   if (last) {
-                    if (digitcontroller.text.length == 1) print("object");
+                    if (digitcontroller.text.length == 1) {
+                      print("object");
+                    } else {
+                      getOtp;
+                    }
                   }
+                },
+                onChanged: (value) {
                   if (value.length == 1 && last == false) {
                     FocusScope.of(context).nextFocus();
                   }
