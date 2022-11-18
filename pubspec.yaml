@@ -47,6 +47,7 @@ dependencies:
   story_time: ^1.0.6
  
   country_calling_code_picker: ^2.0.1
+  aligned_dialog: ^0.0.6
 
   
  

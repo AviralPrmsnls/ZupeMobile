@@ -81,15 +81,13 @@ class _GroupChatBoxState extends State<GroupChatBox> {
                     );
                   });
                 },
-                child: Flexible(
-                  child: const Text(
-                    "Marketing Prmsnls",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: "Satoshi",
-                        fontWeight: FontWeight.w400),
-                  ),
+                child: const Text(
+                  "Marketing Prmsnls",
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "Satoshi",
+                      fontWeight: FontWeight.w400),
                 ),
               ),
             ),
@@ -116,232 +114,226 @@ class _GroupChatBoxState extends State<GroupChatBox> {
         ],
       ),
       backgroundColor: kchatPageColor,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Container(
-              height: h - 85,
-              width: w,
-              // decoration: BoxDecoration(
-              //   color: Color.fromARGB(255, 181, 235, 241),
-              // ),
-              // image: DecorationImage(
-              //     image: AssetImage("assets/images/dp.png"),
-              //     fit: BoxFit.fill)),
-              child: Container(
-                height: h,
-                width: w,
-                child: SingleChildScrollView(
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.end,
+      body: Stack(children: [
+        SingleChildScrollView(
+          child: Container(
+            height: h - 85,
+            width: w,
+            child: SingleChildScrollView(
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Column(
                     children: [
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 45,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.asset(
-                                "assets/images/dp.png",
-                                height: 90,
-                                width: 90,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                      CircleAvatar(
+                        radius: 45,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset(
+                            "assets/images/dp.png",
+                            height: 90,
+                            width: 90,
+                            fit: BoxFit.cover,
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const Text(
-                            "Peter Parker",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Satoshi",
-                                fontSize: 20),
-                          ),
-                          const SizedBox(
-                            height: 2,
-                          ),
-                          const Text(
-                            "+91 90045 63546",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Satoshi",
-                                fontSize: 15),
-                          ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      const Text(
-                        "Friday, May 13",
-                        style: TextStyle(
-                            color: Colors.white60,
-                            fontFamily: "Satoshi",
-                            fontSize: 15),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      RepliedMessage("HI Ryan Reynolds"),
-                      ReceivedMessage("Hi Zupe"),
-                      ReceivedMessage("How you Doing?"),
-                      RepliedMessage("I am good !"),
-                      RepliedMessage("What About You ?"),
-                      ReceivedMessage("I am Great 😁!"),
                       const SizedBox(
                         height: 5,
                       ),
-                      for (int i = 0; i < repliedMessageList.length; i++)
-                        RepliedMessage(repliedMessageList[i]),
+                      const Text(
+                        "Peter Parker",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Satoshi",
+                            fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      const Text(
+                        "+91 90045 63546",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Satoshi",
+                            fontSize: 15),
+                      ),
                     ],
                   ),
-                ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const Text(
+                    "Friday, May 13",
+                    style: TextStyle(
+                        color: Colors.white60,
+                        fontFamily: "Satoshi",
+                        fontSize: 15),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  RepliedMessage("HI Ryan Reynolds"),
+                  ReceivedMessage("Hi Zupe"),
+                  ReceivedMessage("How you Doing?"),
+                  RepliedMessage("I am good !"),
+                  RepliedMessage("What About You ?"),
+                  ReceivedMessage("I am Great 😁!"),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  for (int i = 0; i < repliedMessageList.length; i++)
+                    RepliedMessage(repliedMessageList[i]),
+                ],
               ),
             ),
           ),
-
-          Positioned(
-              bottom: 10,
-              left: 20,
-              child: Row(
-                children: [
-                  Container(
-                    width: w - 100,
-                    height: 50,
-                    child: TextFormField(
-                      onFieldSubmitted: (value) {
+        ),
+        Positioned(
+            bottom: 0,
+            child: Container(
+              width: w,
+              height: 80,
+              decoration: (MediaQuery.of(context).viewInsets.bottom != 0)
+                  ? BoxDecoration(
+                      color: Color.fromRGBO(0, 0, 0, 1),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(35),
+                          topRight: Radius.circular(35)))
+                  : BoxDecoration(),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: w - 100,
+                      height: 50,
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          if (istyped) {
+                            setState(() {
+                              repliedMessageList.add(controller.text);
+                              controller.clear();
+                            });
+                          }
+                        },
+                        controller: controller,
+                        onChanged: (value) {
+                          if (value.isEmpty) {
+                            setState(() {
+                              istyped = false;
+                            });
+                          } else {
+                            setState(() {
+                              istyped = true;
+                            });
+                          }
+                        },
+                        maxLines: 1,
+                        textAlignVertical: TextAlignVertical.center,
+                        autofocus: false,
+                        cursorColor: Colors.white,
+                        style: const TextStyle(
+                            fontFamily: "Satoshi",
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400),
+                        decoration: InputDecoration(
+                            prefixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  showEmojiKeyboard = !showEmojiKeyboard;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.emoji_emotions,
+                                color: Colors.white,
+                              ),
+                            ),
+                            suffixIcon: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 0.0, right: 10),
+                              child: Container(
+                                width: 60,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    const Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    const Icon(
+                                      Icons.mic,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            hintText: "Message",
+                            hintStyle: const TextStyle(
+                                color: Color.fromRGBO(91, 91, 91, 1),
+                                fontSize: 15),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(45, 41, 40, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(35.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(45, 41, 40, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(35.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(45, 41, 40, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(35.0),
+                            ),
+                            fillColor: Color.fromRGBO(45, 41, 40, 1),
+                            filled: true),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    InkWell(
+                      onTap: () {
                         if (istyped) {
                           setState(() {
                             repliedMessageList.add(controller.text);
                             controller.clear();
-                          });
-                        }
-                      },
-                      controller: controller,
-                      onChanged: (value) {
-                        if (value.isEmpty) {
-                          setState(() {
                             istyped = false;
                           });
-                        } else {
-                          setState(() {
-                            istyped = true;
-                          });
                         }
                       },
-                      maxLines: 1,
-                      textAlignVertical: TextAlignVertical.center,
-                      autofocus: false,
-                      cursorColor: Colors.green,
-                      style: const TextStyle(
-                          fontFamily: "Satoshi",
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400),
-                      decoration: InputDecoration(
-                          prefixIcon: InkWell(
-                            onTap: () {
-                              setState(() {
-                                showEmojiKeyboard = !showEmojiKeyboard;
-                              });
-                            },
-                            child: const Icon(
-                              Icons.emoji_emotions,
-                              color: Colors.white,
-                            ),
+                      child: Container(
+                        height: 42,
+                        width: 42,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(35),
+                            color: kNeonColor),
+                        child: Center(
+                          child: Icon(
+                            istyped ? Icons.send : Icons.add,
+                            color: Colors.black,
                           ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(top: 0.0, right: 10),
-                            child: Container(
-                              width: 60,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  const Icon(
-                                    Icons.camera_alt,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  const Icon(
-                                    Icons.mic,
-                                    color: Colors.white,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          hintText: "Message",
-                          hintStyle: const TextStyle(
-                              color: Color.fromRGBO(91, 91, 91, 1),
-                              fontSize: 15),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromRGBO(45, 41, 40, 1),
-                                width: 1.0),
-                            borderRadius: BorderRadius.circular(35.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromRGBO(45, 41, 40, 1),
-                                width: 1.0),
-                            borderRadius: BorderRadius.circular(35.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromRGBO(45, 41, 40, 1),
-                                width: 1.0),
-                            borderRadius: BorderRadius.circular(35.0),
-                          ),
-                          fillColor: Color.fromRGBO(45, 41, 40, 1),
-                          filled: true),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (istyped) {
-                        setState(() {
-                          repliedMessageList.add(controller.text);
-                          controller.clear();
-                        });
-                      }
-                    },
-                    child: Container(
-                      height: 42,
-                      width: 42,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(35),
-                          color: kNeonColor),
-                      child: Center(
-                        child: Icon(
-                          istyped ? Icons.add : Icons.add,
-                          color: Colors.black,
                         ),
                       ),
-                    ),
-                  )
-                ],
-              )),
-          // Positioned(
-          //   bottom: 40,
-          //   child: EmojiKeyboard(
-          //       emotionController: controller,
-          //       emojiKeyboardHeight: 300,
-          //       showEmojiKeyboard: showEmojiKeyboard,
-          //       darkMode: true),
-          // ),
-        ],
-      ),
+                    )
+                  ],
+                ),
+              ),
+            )),
+      ]),
     );
   }
 

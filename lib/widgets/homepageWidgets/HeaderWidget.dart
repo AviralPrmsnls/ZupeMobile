@@ -1,3 +1,4 @@
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zupe/constant/constant.dart';
@@ -5,6 +6,9 @@ import 'package:zupe/model/userModel.dart';
 import 'package:zupe/pages/settingsPage/settingPage.dart';
 import 'package:zupe/provider/storiesPageProvider.dart';
 import 'package:zupe/widgets/homepageWidgets/Stories.dart';
+import 'package:zupe/widgets/homepageWidgets/localDialogBuilder.dart';
+
+import '../../pages/homePage/homePagemodified.dart';
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({super.key});
@@ -71,7 +75,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         child: Column(
           children: [
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
             headerappbar(context),
             const SizedBox(
@@ -170,10 +174,36 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 ),
               ),
             ),
-            const Icon(
-              Icons.more_vert,
-              color: Colors.white,
-              size: 35,
+            InkWell(
+              onTap: () {
+                showAlignedDialog(
+                    context: context,
+                    builder: localDialogBuilder,
+                    followerAnchor: Alignment.topRight,
+                    offset: Offset(-25, 60),
+                    isGlobal: true,
+                    transitionsBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child) {
+                      return SlideTransition(
+                        position: Tween(begin: Offset(-1, 0), end: Offset(0, 0))
+                            .animate(animation),
+                        child: FadeTransition(
+                          opacity: CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOut,
+                          ),
+                          child: child,
+                        ),
+                      );
+                    });
+              },
+              child: const Icon(
+                Icons.more_vert,
+                color: Colors.white,
+                size: 35,
+              ),
             )
           ],
         )

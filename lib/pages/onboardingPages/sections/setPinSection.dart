@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:zupe/constant/constant.dart';
+import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
 
 class SetPinSection extends StatefulWidget {
   SetPinSection({
@@ -59,16 +60,44 @@ class _SetPinSectionState extends State<SetPinSection> {
       const SizedBox(
         height: 6,
       ),
-      const Text(
-        "Confirm your PIN",
-        style: TextStyle(
-            fontFamily: "Satoshi",
-            fontWeight: FontWeight.w500,
-            fontSize: 14,
-            color: Color.fromRGBO(104, 104, 104, 1)),
+      SizedBox(
+        height: 100,
+        child: (Provider.of<PinSectionProvider>(context).getPin.length == 0)
+            ? const Text(
+                "Confirm your PIN",
+                style: TextStyle(
+                    fontFamily: "Satoshi",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: Color.fromRGBO(104, 104, 104, 1)),
+              )
+            : Padding(
+                padding: const EdgeInsets.only(left: 40, right: 40),
+                child: Column(
+                  children: const [
+                    Text(
+                      "PINs keep information stored with Zupe encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall. You won’t need your PIN to open the app. Learn more",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: "Satoshi",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10,
+                          color: Color.fromRGBO(104, 104, 104, 1)),
+                    ),
+                    Text(
+                      "Learn more",
+                      style: TextStyle(
+                          fontFamily: "Satoshi",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: kFloatingbtnColor),
+                    )
+                  ],
+                ),
+              ),
       ),
       const SizedBox(
-        height: 60,
+        height: 20,
       ),
       Container(
         width: w * .80,
@@ -77,6 +106,11 @@ class _SetPinSectionState extends State<SetPinSection> {
             border: Border(bottom: BorderSide(color: kFloatingbtnColor))),
         child: Center(
           child: TextFormField(
+            onChanged: (value) {
+              Provider.of<PinSectionProvider>(context, listen: false).setPin =
+                  value;
+            },
+            controller: pinController,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
@@ -93,7 +127,24 @@ class _SetPinSectionState extends State<SetPinSection> {
                 focusedBorder: InputBorder.none),
           ),
         ),
-      )
+      ),
+      if (Provider.of<PinSectionProvider>(context).getPin.length > 0 &&
+          Provider.of<PinSectionProvider>(context).getPin.length <= 4)
+        Column(
+          children: const [
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "PIN must be at least 4 digits",
+              style: TextStyle(
+                  fontFamily: "Satoshi",
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Color.fromRGBO(215, 211, 211, 1)),
+            ),
+          ],
+        ),
     ]));
   }
 }

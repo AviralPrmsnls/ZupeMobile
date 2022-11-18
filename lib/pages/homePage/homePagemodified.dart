@@ -1,3 +1,4 @@
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:draggable_home/draggable_home.dart';
 
@@ -13,6 +14,8 @@ import 'package:zupe/widgets/homepageWidgets/HeaderWidget.dart';
 import 'package:zupe/widgets/homepageWidgets/Stories.dart';
 import 'package:zupe/widgets/homepageWidgets/chatCard.dart';
 import 'package:zupe/widgets/homepageWidgets/groupChatCard.dart';
+
+import '../../widgets/homepageWidgets/localDialogBuilder.dart';
 
 class HomePageModified extends StatefulWidget {
   HomePageModified({Key? key}) : super(key: key);
@@ -116,9 +119,35 @@ class _HomePageModifiedState extends State<HomePageModified> {
               ),
             ),
           ),
-          const Icon(
-            Icons.more_vert,
-            size: 35,
+          InkWell(
+            onTap: () {
+              showAlignedDialog(
+                  context: context,
+                  builder: localDialogBuilder,
+                  followerAnchor: Alignment.topRight,
+                  offset: Offset(-25, 60),
+                  isGlobal: true,
+                  transitionsBuilder: (BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secondaryAnimation,
+                      Widget child) {
+                    return SlideTransition(
+                      position: Tween(begin: Offset(-1, 0), end: Offset(0, 0))
+                          .animate(animation),
+                      child: FadeTransition(
+                        opacity: CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeOut,
+                        ),
+                        child: child,
+                      ),
+                    );
+                  });
+            },
+            child: const Icon(
+              Icons.more_vert,
+              size: 35,
+            ),
           )
         ],
         body: [
@@ -185,13 +214,12 @@ class _HomePageModifiedState extends State<HomePageModified> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(70),
                                   color: kFloatingbtnColor),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.search,
-                                  color: kFloatingiconColor,
-                                  size: 30,
-                                ),
-                              ),
+                              child: Center(
+                                  child: Image.asset(
+                                "assets/icons/Zterminal.png",
+                                height: 55,
+                                width: 40,
+                              )),
                             ),
                     ),
                   ),

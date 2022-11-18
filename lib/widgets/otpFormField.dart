@@ -112,8 +112,8 @@ class OTPDigitTextFieldBox extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Container(
-      height: w * .11,
-      width: w * .11,
+      height: 40,
+      width: 40,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           gradient: const RadialGradient(radius: 1.5, center: Alignment.topLeft,
@@ -125,8 +125,8 @@ class OTPDigitTextFieldBox extends StatelessWidget {
               ])),
       child: Center(
         child: Container(
-          height: (w * .11) - 4,
-          width: (w * .11) - 4,
+          height: 36,
+          width: 36,
           decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -172,7 +172,7 @@ class OTPDigitTextFieldBox extends StatelessWidget {
                 style: TextStyle(
                     fontFamily: "Satoshi",
                     color: Color.fromRGBO(255, 255, 255, .8),
-                    fontSize: 21),
+                    fontSize: 18),
                 keyboardType: TextInputType.number,
                 maxLength: 1,
                 textAlignVertical: TextAlignVertical.center,

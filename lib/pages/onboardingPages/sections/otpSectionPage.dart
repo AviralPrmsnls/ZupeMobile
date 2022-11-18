@@ -129,8 +129,8 @@ class _OtpSectionState extends State<OtpSection> {
                   ),
                   if (Provider.of<OtpSectionProvider>(
                         context,
-                      ).getOtpReceived ==
-                      "")
+                      ).getOtpReceived.length ==
+                      6)
                     const CircularProgressIndicator(
                       color: Color.fromRGBO(173, 255, 0, .85),
                     )
