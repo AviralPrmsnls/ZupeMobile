@@ -1,33 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
+
+import '../pages/onboardingPages/onboardingPages.dart';
 
 class EnterOTP extends StatefulWidget {
-  EnterOTP({super.key, required this.otp});
-  String otp;
+  EnterOTP({
+    super.key,
+  });
+
   @override
   State<EnterOTP> createState() => _EnterOTPState();
 }
 
-class _EnterOTPState extends State<EnterOTP> {
-  getOtp() {
-    setState(() {
-      widget.otp = firstDigit.text +
+getOtp(BuildContext context) async {
+  Provider.of<OtpSectionProvider>(context, listen: false).setOtpReceived =
+      firstDigit.text +
           secondDigit.text +
           thirdDigit.text +
           fourthDigit.text +
           fifthDigit.text +
           sixthDigit.text;
-    });
-    print("this is otp ${widget.otp}");
-  }
 
-  TextEditingController firstDigit = TextEditingController();
-  TextEditingController secondDigit = TextEditingController();
-  TextEditingController thirdDigit = TextEditingController();
+  await Future.delayed(Duration(milliseconds: 200));
+  pageController.animateToPage(1,
+      duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
+}
 
-  TextEditingController fourthDigit = TextEditingController();
-  TextEditingController fifthDigit = TextEditingController();
-  TextEditingController sixthDigit = TextEditingController();
+String Otp = '';
+
+TextEditingController firstDigit = TextEditingController();
+TextEditingController secondDigit = TextEditingController();
+TextEditingController thirdDigit = TextEditingController();
+
+TextEditingController fourthDigit = TextEditingController();
+TextEditingController fifthDigit = TextEditingController();
+TextEditingController sixthDigit = TextEditingController();
+
+class _EnterOTPState extends State<EnterOTP> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -39,19 +50,16 @@ class _EnterOTPState extends State<EnterOTP> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               OTPDigitTextFieldBox(
-                getOtp: getOtp(),
                 first: true,
                 last: false,
                 digitcontroller: firstDigit,
               ),
               OTPDigitTextFieldBox(
-                getOtp: getOtp(),
                 first: false,
                 last: false,
                 digitcontroller: secondDigit,
               ),
               OTPDigitTextFieldBox(
-                getOtp: getOtp(),
                 first: false,
                 last: false,
                 digitcontroller: thirdDigit,
@@ -64,19 +72,16 @@ class _EnterOTPState extends State<EnterOTP> {
                     fontSize: 40),
               ),
               OTPDigitTextFieldBox(
-                getOtp: getOtp(),
                 first: false,
                 last: false,
                 digitcontroller: fourthDigit,
               ),
               OTPDigitTextFieldBox(
-                getOtp: getOtp(),
                 first: false,
                 last: false,
                 digitcontroller: fifthDigit,
               ),
               OTPDigitTextFieldBox(
-                getOtp: getOtp(),
                 first: false,
                 last: true,
                 digitcontroller: sixthDigit,
@@ -90,16 +95,16 @@ class _EnterOTPState extends State<EnterOTP> {
 }
 
 class OTPDigitTextFieldBox extends StatelessWidget {
-  OTPDigitTextFieldBox(
-      {super.key,
-      required this.first,
-      required this.last,
-      required this.digitcontroller,
-      required this.getOtp});
+  OTPDigitTextFieldBox({
+    super.key,
+    required this.first,
+    required this.last,
+    required this.digitcontroller,
+  });
 
   final bool first;
   final bool last;
-  dynamic getOtp;
+
   TextEditingController digitcontroller;
 
   @override
@@ -147,10 +152,8 @@ class OTPDigitTextFieldBox extends StatelessWidget {
                 autofocus: true,
                 onFieldSubmitted: (value) {
                   if (last) {
-                    if (digitcontroller.text.length == 1) {
-                      print("object");
-                    } else {
-                      getOtp;
+                    if (value.length == 1) {
+                      getOtp(context);
                     }
                   }
                 },

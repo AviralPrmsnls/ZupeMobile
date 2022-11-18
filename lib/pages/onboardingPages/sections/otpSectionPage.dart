@@ -6,7 +6,8 @@ import 'package:zupe/constant/constant.dart';
 import 'package:zupe/pages/homePage/homePagemodified.dart';
 import 'package:country_calling_code_picker/picker.dart';
 import 'package:zupe/pages/onboardingPages/onboardingPages.dart';
-import 'package:zupe/provider/otpSectionProvider.dart';
+import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
+
 import 'package:zupe/widgets/otpFormField.dart';
 
 class OtpSection extends StatefulWidget {
@@ -57,7 +58,7 @@ class _OtpSectionState extends State<OtpSection> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 25.0),
+              padding: EdgeInsets.only(left: 0),
               child: Text(
                 "zupe",
                 style: TextStyle(
@@ -97,15 +98,42 @@ class _OtpSectionState extends State<OtpSection> {
                   const SizedBox(
                     height: 35,
                   ),
-                  EnterOTP(
-                    otp: otpRecieved,
+                  EnterOTP(),
+                  const SizedBox(
+                    height: 35,
                   ),
-                  Text("${otpRecieved}",
-                      style: const TextStyle(
-                          fontFamily: "Satoshi",
-                          fontSize: 24,
-                          color: kFloatingbtnColor,
-                          fontWeight: FontWeight.w700))
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0, right: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          "Call me instead \n(available in 01:00)",
+                          style: TextStyle(
+                              fontFamily: "Satoshi",
+                              fontSize: 12,
+                              color: Color.fromRGBO(104, 104, 104, 1),
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text("Wrong number",
+                            style: TextStyle(
+                                fontFamily: "Satoshi",
+                                fontSize: 12,
+                                color: Color.fromRGBO(238, 218, 218, 1),
+                                fontWeight: FontWeight.w900)),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  if (Provider.of<OtpSectionProvider>(
+                        context,
+                      ).getOtpReceived ==
+                      "")
+                    const CircularProgressIndicator(
+                      color: Color.fromRGBO(173, 255, 0, .85),
+                    )
                 ],
               ),
             ),
@@ -119,7 +147,7 @@ class _OtpSectionState extends State<OtpSection> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 25.0),
+            padding: EdgeInsets.only(),
             child: Text(
               "zupe",
               style: TextStyle(
