@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zupe/pages/chatsPage/chatBox.dart';
+import 'package:zupe/pages/chatsPage/individualChat/chatBox.dart';
 
 class ChatsPage extends StatefulWidget {
   const ChatsPage({super.key});

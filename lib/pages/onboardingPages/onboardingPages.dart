@@ -19,7 +19,7 @@ class OnBoardingPage extends StatefulWidget {
   State<OnBoardingPage> createState() => _OnBoardingPageState();
 }
 
-int initalPage = 0;
+int initalPage = 2;
 PageController pageController = PageController(initialPage: initalPage);
 
 class _OnBoardingPageState extends State<OnBoardingPage> {

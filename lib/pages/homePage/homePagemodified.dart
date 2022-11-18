@@ -12,6 +12,7 @@ import 'package:zupe/provider/storiesPageProvider.dart';
 import 'package:zupe/widgets/homepageWidgets/HeaderWidget.dart';
 import 'package:zupe/widgets/homepageWidgets/Stories.dart';
 import 'package:zupe/widgets/homepageWidgets/chatCard.dart';
+import 'package:zupe/widgets/homepageWidgets/groupChatCard.dart';
 
 class HomePageModified extends StatefulWidget {
   HomePageModified({Key? key}) : super(key: key);
@@ -152,13 +153,15 @@ class _HomePageModifiedState extends State<HomePageModified> {
               const SizedBox(
                 height: 20,
               ),
+              HomeGroupChatCard(
+                index: 0,
+                Chatindex: Chatindex,
+              ),
               for (int i = 0; i < 10; i++)
-                InkWell(
-                    onTap: () {},
-                    child: HomeChatCard(
-                      index: i,
-                      Chatindex: Chatindex,
-                    ))
+                HomeChatCard(
+                  index: i,
+                  Chatindex: Chatindex,
+                )
             ],
           ),
         ],

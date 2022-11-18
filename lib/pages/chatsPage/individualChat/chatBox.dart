@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:zupe/constant/constant.dart';
-import 'package:zupe/pages/chatsPage/chatProfilePage.dart';
+import 'package:zupe/pages/chatsPage/individualChat/chatProfilePage.dart';
 import 'package:zupe/pages/homePage/calls.dart';
 import 'package:zupe/pages/homePage/chats.dart';
 import 'package:zupe/pages/homePage/status.dart';

@@ -4,16 +4,16 @@ import 'package:zupe/constant/constant.dart';
 import 'package:zupe/pages/chatsPage/groupChat/groupChatBox.dart';
 import 'package:zupe/pages/chatsPage/individualChat/chatBox.dart';
 
-class HomeChatCard extends StatefulWidget {
-  HomeChatCard({Key? key, required this.Chatindex, required this.index})
+class HomeGroupChatCard extends StatefulWidget {
+  HomeGroupChatCard({Key? key, required this.Chatindex, required this.index})
       : super(key: key);
   int Chatindex;
   int index;
   @override
-  State<HomeChatCard> createState() => _HomeChatCardState();
+  State<HomeGroupChatCard> createState() => _HomeGroupChatCardState();
 }
 
-class _HomeChatCardState extends State<HomeChatCard> {
+class _HomeGroupChatCardState extends State<HomeGroupChatCard> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -23,7 +23,7 @@ class _HomeChatCardState extends State<HomeChatCard> {
         setState(() {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatBox()),
+            MaterialPageRoute(builder: (context) => GroupChatBox()),
           );
         });
       },
@@ -44,7 +44,7 @@ class _HomeChatCardState extends State<HomeChatCard> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
                       child: Image.asset(
-                        "assets/images/dp.png",
+                        "assets/images/permissionless.png",
                         height: 80,
                         width: 80,
                         fit: BoxFit.fill,
@@ -71,7 +71,7 @@ class _HomeChatCardState extends State<HomeChatCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: const [
                                 Text(
-                                  "Peter Parker",
+                                  "Marketing Prmsnls",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
@@ -93,13 +93,27 @@ class _HomeChatCardState extends State<HomeChatCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(
-                                  "Ur Welcome :)",
+                                  "Pritesh: Hey Guys, Chief is speakin..",
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       color: Color.fromRGBO(98, 98, 98, 1)),
                                 ),
-                                if (widget.index == 0) noOfChatUnseen()
+                                Container(
+                                  height: 14,
+                                  width: 14,
+                                  decoration: BoxDecoration(
+                                      color: kNeonColor,
+                                      borderRadius: BorderRadius.circular(14)),
+                                  child: Center(
+                                    child: Text(
+                                      "1",
+                                      style: GoogleFonts.robotoFlex(
+                                          fontSize: 7,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           )
@@ -114,22 +128,6 @@ class _HomeChatCardState extends State<HomeChatCard> {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Container noOfChatUnseen() {
-    return Container(
-      height: 14,
-      width: 14,
-      decoration: BoxDecoration(
-          color: kNeonColor, borderRadius: BorderRadius.circular(14)),
-      child: Center(
-        child: Text(
-          "1",
-          style:
-              GoogleFonts.robotoFlex(fontSize: 7, fontWeight: FontWeight.w700),
         ),
       ),
     );

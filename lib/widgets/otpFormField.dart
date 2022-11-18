@@ -179,7 +179,7 @@ class OTPDigitTextFieldBox extends StatelessWidget {
                 decoration: const InputDecoration(
                   // contentPadding: EdgeInsets.all(0),
                   contentPadding:
-                      EdgeInsets.only(left: 14, bottom: 7, top: 0, right: 15),
+                      EdgeInsets.only(left: 10, bottom: 7, top: 0, right: 10),
                   counter: Offstage(),
                   enabledBorder: InputBorder.none,
 
