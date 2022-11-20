@@ -16,13 +16,24 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         // elevation: 0,
-        backgroundColor: kAppBarPrimaryColor,
+        leading: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: kFloatingbtnColor,
+          ),
+        ),
+        backgroundColor: kchatPageColor,
         centerTitle: false,
         title: const Text(
           "Profile",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: 22, fontFamily: "Satoshi", fontWeight: FontWeight.w500),
         ),
       ),
+      backgroundColor: kAppBarPrimaryColor,
       body: Container(
         height: h,
         width: w,
@@ -34,75 +45,70 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 20,
             ),
             NameEdit(w, () {}),
+            AboutEdit(w, () {}),
+            Badges(w),
             Padding(
-              padding: EdgeInsets.only(left: 65, right: 40, bottom: 10),
+              padding:
+                  EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
               child: Text(
-                "This is not your username or pin. This name will be visible to your Zupe contacts",
+                "Your profile and changes to it will be visible to people you message, contacts, and groups.",
                 style: TextStyle(
                     fontSize: 17,
-                    fontWeight: FontWeight.w400,
-                    color: kGreyColor),
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white54),
               ),
             ),
-            AboutEdit(w, () {}),
-            phoneNumeber(w)
           ],
         ),
       ),
     );
   }
 
-  Widget phoneNumeber(
+  Widget Badges(
     double w,
   ) {
-    return Container(
-      height: 85,
-      width: w,
-      padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-      child: Row(
-        children: [
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.call,
-                  color: kGreyColor,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Flexible(
-                        child: Text(
-                          "Phone",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: kGreyColor),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "+91 7007042761",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black),
-                      ),
-                    ],
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        height: 85,
+        width: w,
+        padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+        child: Row(
+          children: [
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.badge_outlined,
+                    color: kGreyColor,
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Flexible(
+                          child: Text(
+                            "Badges",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: "Satoshi",
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -116,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Container(
         height: 85,
         width: w,
-        padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+        padding: EdgeInsets.only(left: 20, right: 20, bottom: 5),
         child: Row(
           children: [
             Expanded(
@@ -124,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Icon(
-                    Icons.help,
+                    Icons.description,
                     color: kGreyColor,
                   ),
                   const SizedBox(
@@ -137,22 +143,25 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: const [
                         Flexible(
                           child: Text(
-                            "About",
+                            "Working on something new",
                             style: TextStyle(
-                                fontSize: 17,
+                                fontSize: 18,
+                                fontFamily: "Satoshi",
                                 fontWeight: FontWeight.w400,
-                                color: kGreyColor),
+                                color: Colors.white),
                           ),
                         ),
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
-                          "😁",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "Write a few words about yourself",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white54),
+                          ),
                         ),
                       ],
                     ),
@@ -160,10 +169,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            const Icon(
-              Icons.edit,
-              color: kAppBarPrimaryColor,
-            )
           ],
         ),
       ),
@@ -181,52 +186,45 @@ class _ProfilePageState extends State<ProfilePage> {
         width: w,
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 0),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset(
+              "assets/icons/profile.png",
+              height: 25,
+              width: 25,
+              color: Colors.white60,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
             Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.person,
-                    color: kGreyColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Lester",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: "Satoshi",
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white),
                   ),
-                  const SizedBox(
-                    width: 20,
+                  SizedBox(
+                    height: 5,
                   ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Flexible(
-                          child: Text(
-                            "Name",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: kGreyColor),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Tony Stark 😎",
-                          style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black),
-                        ),
-                      ],
+                  Flexible(
+                    child: Text(
+                      "Your name",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white54),
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(
-              Icons.edit,
-              color: kAppBarPrimaryColor,
-            )
           ],
         ),
       ),
@@ -263,10 +261,10 @@ class _ProfilePageState extends State<ProfilePage> {
               width: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
-                  color: kAppBarPrimaryColor),
+                  color: kFloatingbtnColor),
               child: const Icon(
                 Icons.camera_alt,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ))
       ],

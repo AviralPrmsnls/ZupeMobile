@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:zupe/constant/constant.dart';
-import 'package:zupe/pages/settingsPage/profilePage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/accountPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/appearancePage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/chatSettingPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/linkedDevicesPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/notificationsSettingPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/profilePage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/storiesSettingPage.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -17,6 +23,15 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: AppBar(
         // elevation: 0,
+        leading: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: kFloatingbtnColor,
+          ),
+        ),
         backgroundColor: kchatPageColor,
         centerTitle: false,
         title: const Text(
@@ -32,12 +47,57 @@ class _SettingPageState extends State<SettingPage> {
           child: Column(
             children: [
               profileCard(),
-              SettingOptions(w, "Account", "", () {}, "account"),
-              SettingOptionsWhite(w, "Linked Devices", "", () {}, "linked"),
-              SettingOptions(w, "Appearance", "", () {}, "appearance"),
-              SettingOptionsWhite(w, "Chats", "", () {}, "chat"),
-              SettingOptionsWhite(w, "Stories", "", () {}, "stories"),
-              SettingOptions(w, "Notifications", "", () {}, "notifications"),
+              SettingOptions(w, "Account", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AccountPage()),
+                  );
+                });
+              }, "account"),
+              SettingOptionsWhite(w, "Linked Devices", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LinkedDevicesPage()),
+                  );
+                });
+              }, "linked"),
+              SettingOptions(w, "Appearance", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AppearancePage()),
+                  );
+                });
+              }, "appearance"),
+              SettingOptionsWhite(w, "Chats", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatSettingPage()),
+                  );
+                });
+              }, "chat"),
+              SettingOptionsWhite(w, "Stories", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StoriesSettingPage()),
+                  );
+                });
+              }, "stories"),
+              SettingOptions(w, "Notifications", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationsSettingPage()),
+                  );
+                });
+              }, "notifications"),
               SettingOptions(w, "Privacy", "", () {}, "privacy"),
               SettingOptionsWhite(w, "Data and Storage", "", () {}, "data"),
               SettingOptions(w, "Payments", "", () {}, "payments"),
@@ -126,9 +186,6 @@ class _SettingPageState extends State<SettingPage> {
       Function()? ontap, String icon) {
     return Column(
       children: [
-        const SizedBox(
-          height: 0,
-        ),
         InkWell(
           onTap: ontap,
           child: Container(
@@ -188,7 +245,14 @@ class _SettingPageState extends State<SettingPage> {
 
   Widget profileCard() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfilePage()),
+          );
+        });
+      },
       child: Padding(
         padding:
             const EdgeInsets.only(left: 10.0, right: 10, bottom: 10, top: 15),
