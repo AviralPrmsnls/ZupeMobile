@@ -24,11 +24,11 @@ class _TitleDescriptionOptionCardState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.only(top: 10.0, bottom: 10),
       child: InkWell(
         onTap: widget.ontap,
         child: Container(
-          height: 50,
+          // height: 50,
           width: widget.w,
           padding: const EdgeInsets.only(
             left: 20,

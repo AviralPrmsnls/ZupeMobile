@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:zupe/constant/constant.dart';
-import 'package:zupe/widgets/settingPageWidgets/redTitleOptionCard.dart';
 import 'package:zupe/widgets/settingPageWidgets/settingHeaderCard.dart';
-import 'package:zupe/widgets/settingPageWidgets/singleTitleOptionCard.dart';
-import 'package:zupe/widgets/settingPageWidgets/switchBtnSettingsOptionCard.dart';
 import 'package:zupe/widgets/settingPageWidgets/switchSingleTextBtnOptionCard.dart';
 import 'package:zupe/widgets/settingPageWidgets/titleDescriptionOptionCard.dart';
 
-class NotificationsSettingPage extends StatefulWidget {
-  const NotificationsSettingPage({super.key});
+class NotificationSettingPage extends StatefulWidget {
+  const NotificationSettingPage({super.key});
 
   @override
-  State<NotificationsSettingPage> createState() => _NotificationsSettingPageState();
+  State<NotificationSettingPage> createState() =>
+      _NotificationSettingPageState();
 }
 
-class _NotificationsSettingPageState extends State<NotificationsSettingPage> {
-  bool  isCallNotifications  = true;
-  bool  isInChatSound = false;
-  bool isNotifications = false;
+class _NotificationSettingPageState extends State<NotificationSettingPage> {
+  bool isCallNotifications = true;
+  bool isCallVibrate = true;
   bool isEnterKeySends = false;
- bool  isCallVibrate = true;
+  bool isInChatSound = false;
+  bool isNotifications = false;
+  bool isContactJoinsZupe = false;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -52,8 +51,8 @@ class _NotificationsSettingPageState extends State<NotificationsSettingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               SettingHeaderCard(text: "Messages"),
-                   SwitchSingleBtnSettingsOptionCard(
+              SettingHeaderCard(text: "Messages"),
+              SwitchSingleBtnSettingsOptionCard(
                 header: "Notifications",
                 isSelect: isNotifications,
                 ontap: () {
@@ -62,13 +61,12 @@ class _NotificationsSettingPageState extends State<NotificationsSettingPage> {
                   });
                 },
               ),
-                 TitleDescriptionOptionCard(
+              TitleDescriptionOptionCard(
                   title: "Customize",
                   description: "Change sound and vibration",
                   w: w,
                   ontap: () {}),
-
-                   SwitchSingleBtnSettingsOptionCard(
+              SwitchSingleBtnSettingsOptionCard(
                 header: "In-chat sounds",
                 isSelect: isInChatSound,
                 ontap: () {
@@ -77,17 +75,17 @@ class _NotificationsSettingPageState extends State<NotificationsSettingPage> {
                   });
                 },
               ),
-                   TitleDescriptionOptionCard(
+              TitleDescriptionOptionCard(
                   title: "Repeat alerts",
                   description: "Never",
                   w: w,
                   ontap: () {}),
-                  TitleDescriptionOptionCard(
+              TitleDescriptionOptionCard(
                   title: "Show",
                   description: "Name and message",
                   w: w,
                   ontap: () {}),
-                      const SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               const Divider(
@@ -95,7 +93,7 @@ class _NotificationsSettingPageState extends State<NotificationsSettingPage> {
                 color: Colors.white12,
               ),
               SettingHeaderCard(text: "Calls"),
-                       SwitchSingleBtnSettingsOptionCard(
+              SwitchSingleBtnSettingsOptionCard(
                 header: "Notifications",
                 isSelect: isCallNotifications,
                 ontap: () {
@@ -104,29 +102,17 @@ class _NotificationsSettingPageState extends State<NotificationsSettingPage> {
                   });
                 },
               ),
-          
-                 TitleDescriptionOptionCard(
+              TitleDescriptionOptionCard(
                   title: "Ringtone",
                   description: "Default(MiRemix)",
                   w: w,
                   ontap: () {}),
-                           SwitchSingleBtnSettingsOptionCard(
+              SwitchSingleBtnSettingsOptionCard(
                 header: "Vibrate",
                 isSelect: isCallVibrate,
                 ontap: () {
                   setState(() {
                     isCallVibrate = !isCallVibrate;
-                  });
-                },
-              ),
-              SettingHeaderCard(text: "Keyboard"),
-       
-              SwitchSingleBtnSettingsOptionCard(
-                header: "Enter key sends",
-                isSelect: isEnterKeySends,
-                ontap: () {
-                  setState(() {
-                    isEnterKeySends = !isEnterKeySends;
                   });
                 },
               ),
@@ -137,8 +123,33 @@ class _NotificationsSettingPageState extends State<NotificationsSettingPage> {
                 thickness: 1,
                 color: Colors.white12,
               ),
-              SettingHeaderCard(text: "Backups"),
-           
+              SettingHeaderCard(text: "Notofication profiles"),
+              TitleDescriptionOptionCard(
+                  title: "Profiles",
+                  description:
+                      "Create a profile to receive notifications only from people and groups you choose",
+                  w: w,
+                  ontap: () {}),
+              const SizedBox(
+                height: 20,
+              ),
+              const Divider(
+                thickness: 1,
+                color: Colors.white12,
+              ),
+              SettingHeaderCard(text: "Notify when .."),
+              SwitchSingleBtnSettingsOptionCard(
+                header: "Contact join Zupe",
+                isSelect: isContactJoinsZupe,
+                ontap: () {
+                  setState(() {
+                    isContactJoinsZupe = !isContactJoinsZupe;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 40,
+              ),
             ],
           ),
         ),

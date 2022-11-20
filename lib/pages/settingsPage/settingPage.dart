@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:zupe/constant/constant.dart';
+import 'package:zupe/pages/settingsPage/optionPages/InviteSettingPage.dart';
 import 'package:zupe/pages/settingsPage/optionPages/accountPage.dart';
 import 'package:zupe/pages/settingsPage/optionPages/appearancePage.dart';
 import 'package:zupe/pages/settingsPage/optionPages/chatSettingPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/dataAndStorageSettingPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/helpSettingPage.dart';
 import 'package:zupe/pages/settingsPage/optionPages/linkedDevicesPage.dart';
-import 'package:zupe/pages/settingsPage/optionPages/notificationsSettingPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/notificationSettingPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/paymentSettingPage.dart';
+import 'package:zupe/pages/settingsPage/optionPages/privacySettingPage.dart';
+
 import 'package:zupe/pages/settingsPage/optionPages/profilePage.dart';
 import 'package:zupe/pages/settingsPage/optionPages/storiesSettingPage.dart';
 
@@ -94,15 +100,54 @@ class _SettingPageState extends State<SettingPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NotificationsSettingPage()),
+                        builder: (context) => NotificationSettingPage()),
                   );
                 });
               }, "notifications"),
-              SettingOptions(w, "Privacy", "", () {}, "privacy"),
-              SettingOptionsWhite(w, "Data and Storage", "", () {}, "data"),
-              SettingOptions(w, "Payments", "", () {}, "payments"),
-              SettingOptions(w, "Help", "", () {}, "help"),
-              SettingOptions(w, "Invite your friends", "", () {}, "invite"),
+              SettingOptions(w, "Privacy", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PrivacySettingPage()),
+                  );
+                });
+              }, "privacy"),
+              SettingOptionsWhite(w, "Data and Storage", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DataAndStorageSettingPage()),
+                  );
+                });
+              }, "data"),
+              SettingOptions(w, "Payments", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PaymentSettingPage()),
+                  );
+                });
+              }, "payments"),
+              SettingOptions(w, "Help", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HelpSettingPage()),
+                  );
+                });
+              }, "help"),
+              SettingOptions(w, "Invite your friends", "", () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => InviteSettingPage()),
+                  );
+                });
+              }, "invite"),
               const SizedBox(
                 height: 10,
               ),

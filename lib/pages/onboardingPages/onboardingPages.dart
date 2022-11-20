@@ -1,16 +1,12 @@
 import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:zupe/constant/constant.dart';
 import 'package:zupe/pages/FirstPage.dart';
-import 'package:zupe/pages/homePage/homePagemodified.dart';
-import 'package:country_calling_code_picker/picker.dart';
 import 'package:zupe/pages/onboardingPages/sections/otpSectionPage.dart';
 import 'package:zupe/pages/onboardingPages/sections/setPinSection.dart';
 import 'package:zupe/pages/onboardingPages/sections/setProfileSection.dart';
 import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
-
-import '../../constant/constant.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
