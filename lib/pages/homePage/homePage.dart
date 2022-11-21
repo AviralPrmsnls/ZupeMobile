@@ -47,8 +47,8 @@ class _HomePageState extends State<HomePage> {
                   );
                 });
               },
-              child: Icon(Icons.more_vert)),
-          SizedBox(
+              child: const Icon(Icons.more_vert)),
+          const SizedBox(
             width: 10,
           ),
         ],

@@ -36,13 +36,53 @@ class _InviteSettingPageState extends State<InviteSettingPage> {
       body: SizedBox(
         width: w,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              "Invite Page coming soon!",
-              style: TextStyle(
-                  color: Colors.white, fontFamily: "Satoshi", fontSize: 20),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, bottom: 5, top: 10),
+              child: Container(
+                width: w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.white24,
+                      width: 1,
+                    )),
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    "Let's Switch to Zupe:\nhttps://zupe-the-last-app.web.app/",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Satoshi",
+                        fontSize: 16),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, bottom: 5, top: 20),
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.share,
+                    color: Colors.white70,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Share",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300),
+                  )
+                ],
+              ),
             )
           ],
         ),

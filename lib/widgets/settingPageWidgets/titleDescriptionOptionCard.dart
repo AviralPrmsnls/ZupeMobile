@@ -41,7 +41,7 @@ class _TitleDescriptionOptionCardState
               children: [
                 Text(
                   widget.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18,
                       fontFamily: "Satoshi",
                       fontWeight: FontWeight.w400,
