@@ -153,7 +153,7 @@ class _GroupChatBoxState extends State<GroupChatBox> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.asset(
-                            "assets/images/dp.png",
+                            "assets/images/permissionless.png",
                             height: 90,
                             width: 90,
                             fit: BoxFit.cover,
