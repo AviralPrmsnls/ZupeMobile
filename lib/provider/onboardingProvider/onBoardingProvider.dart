@@ -29,6 +29,17 @@ class OtpSectionProvider extends ChangeNotifier {
   }
 }
 
+class PhomeNumberSectionProvider extends ChangeNotifier {
+  String _phoneNumber = "";
+
+  String get getPhoneNumber => _phoneNumber;
+
+  set setPhoneNumber(String phoneNumber) {
+    _phoneNumber = phoneNumber;
+    notifyListeners();
+  }
+}
+
 class ProfileSectionProvider extends ChangeNotifier {
   String _firstName = "";
 

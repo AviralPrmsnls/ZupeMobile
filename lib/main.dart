@@ -23,6 +23,7 @@ void main() async {
           measurementId: "G-76E6LY6V0J"));
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (context) => PhomeNumberSectionProvider()),
       ChangeNotifierProvider(create: (context) => PinSectionProvider()),
       ChangeNotifierProvider(create: (context) => ProfileSectionProvider()),
       ChangeNotifierProvider(create: (context) => TabBarProvider()),

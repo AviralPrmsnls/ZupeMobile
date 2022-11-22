@@ -7,6 +7,7 @@ import 'package:zupe/pages/onboardingPages/sections/otpSectionPage.dart';
 import 'package:zupe/pages/onboardingPages/sections/setPinSection.dart';
 import 'package:zupe/pages/onboardingPages/sections/setProfileSection.dart';
 import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
+import 'package:zupe/service/apiService.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
@@ -19,6 +20,7 @@ int initalPage = 0;
 PageController pageController = PageController(
   initialPage: initalPage,
 );
+ApiService apiService = ApiService();
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
@@ -264,9 +266,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     : Color.fromRGBO(62, 62, 62, 1),
                 borderRadius: BorderRadius.circular(20),
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (Provider.of<OtpSectionProvider>(context, listen: false)
                         .getMobileNumberEntered) {
+                      // await apiService.getOtpWhenSignIn(
+                      //     Provider.of<PhomeNumberSectionProvider>(context,
+                      //             listen: false)
+                      //         .getPhoneNumber);
                       Provider.of<OtpSectionProvider>(context, listen: false)
                           .setOtpRequestSent = true;
                     }

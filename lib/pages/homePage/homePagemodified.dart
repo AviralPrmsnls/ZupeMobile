@@ -29,7 +29,7 @@ class _HomePageModifiedState extends State<HomePageModified> {
   bool isSearched = false;
   bool isArchived = false;
   bool isResultFound = false;
-  late ValueNotifier<IndicatorAnimationCommand> indicatorAnimationController;
+  // late ValueNotifier<IndicatorAnimationCommand> indicatorAnimationController;
   final sampleUsers = [
     UserModel([
       StoryModel(
@@ -57,20 +57,6 @@ class _HomePageModifiedState extends State<HomePageModified> {
     ], "User3",
         "https://images.unsplash.com/photo-1609127102567-8a9a21dc27d8?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzOTh8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    indicatorAnimationController = ValueNotifier<IndicatorAnimationCommand>(
-      IndicatorAnimationCommand(resume: true),
-    );
-  }
-
-  @override
-  void dispose() {
-    indicatorAnimationController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

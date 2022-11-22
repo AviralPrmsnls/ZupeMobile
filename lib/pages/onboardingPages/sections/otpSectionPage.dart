@@ -7,6 +7,7 @@ import 'package:zupe/pages/homePage/homePagemodified.dart';
 import 'package:country_calling_code_picker/picker.dart';
 import 'package:zupe/pages/onboardingPages/onboardingPages.dart';
 import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
+import 'package:zupe/service/apiService.dart';
 
 import 'package:zupe/widgets/otpFormField.dart';
 
@@ -374,6 +375,10 @@ class _OtpSectionState extends State<OtpSection> {
                                 Provider.of<OtpSectionProvider>(context,
                                         listen: false)
                                     .setMobileNumberEntered = true;
+                                Provider.of<PhomeNumberSectionProvider>(context,
+                                            listen: false)
+                                        .setPhoneNumber =
+                                    _selectedCountry.callingCode + value;
                               } else {
                                 Provider.of<OtpSectionProvider>(context,
                                         listen: false)
