@@ -3,6 +3,7 @@ import 'package:zupe/pages/FirstPage.dart';
 import 'package:zupe/pages/homePage/homePagemodified.dart';
 import 'package:zupe/pages/onboardingPages/onboardingPages.dart';
 import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
+import 'package:zupe/provider/selectedGroupContact.dart';
 
 import 'package:zupe/provider/storiesPageProvider.dart';
 import 'package:zupe/service/provider.dart';
@@ -28,6 +29,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => ProfileSectionProvider()),
       ChangeNotifierProvider(create: (context) => TabBarProvider()),
       ChangeNotifierProvider(create: (context) => StoriesProvider()),
+      ChangeNotifierProvider(create: (context) => SelectGroupContactProvider()),
       ChangeNotifierProvider(create: (context) => OtpSectionProvider()),
     ],
     child: MyApp(),

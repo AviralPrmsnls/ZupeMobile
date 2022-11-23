@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../pages/chatsPage/groupChat/groupCreationPage/selectMembersPage.dart';
+
 WidgetBuilder get localDialogBuilder {
   return (BuildContext context) {
     return GestureDetector(
@@ -20,7 +22,13 @@ WidgetBuilder get localDialogBuilder {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SelectMembersPage()),
+                      );
+                    },
                     child: const Text(
                       "New Group",
                       style: TextStyle(
