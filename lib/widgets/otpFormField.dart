@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
 import 'package:zupe/service/apiService.dart';
 
@@ -17,6 +18,7 @@ class EnterOTP extends StatefulWidget {
 
 ApiService apiService = ApiService();
 getOtp(BuildContext context) async {
+  final prefs = await SharedPreferences.getInstance();
   Provider.of<OtpSectionProvider>(context, listen: false).setOtpReceived =
       firstDigit.text +
           secondDigit.text +
@@ -30,6 +32,10 @@ getOtp(BuildContext context) async {
           .getPhoneNumber,
       Provider.of<OtpSectionProvider>(context, listen: false).getOtpReceived);
   if (result == 201) {
+    prefs.setString(
+        "UserPhone",
+        Provider.of<PhomeNumberSectionProvider>(context, listen: false)
+            .getPhoneNumber);
     pageController.animateToPage(1,
         duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
   } else {

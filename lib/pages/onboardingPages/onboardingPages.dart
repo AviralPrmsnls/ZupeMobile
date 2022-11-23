@@ -1,6 +1,7 @@
 import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webviewx/webviewx.dart';
 import 'package:zupe/constant/constant.dart';
 import 'package:zupe/pages/FirstPage.dart';
@@ -55,6 +56,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     webviewController.dispose();
   }
 
+  getPrefsUpdate(String name, String base64dp) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("userName", name);
+    prefs.setString("base64Dp", base64dp);
+  }
+
+  bool isSetProfileButtonLoading = false;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -243,50 +251,91 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   ) {
     return SizedBox(
       height: 55,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10.0),
-        child: Material(
-          color: Provider.of<ProfileSectionProvider>(context, listen: true)
-                  .getfirstName
-                  .isNotEmpty
-              ? kFloatingbtnColor
-              : Color.fromRGBO(62, 62, 62, 1),
-          borderRadius: BorderRadius.circular(20),
-          child: InkWell(
-            onTap: () {
-              if (Provider.of<ProfileSectionProvider>(context, listen: false)
-                  .getfirstName
-                  .isNotEmpty) {
-                pageController.animateToPage(2,
-                    duration: const Duration(milliseconds: 600),
-                    curve: Curves.easeIn);
-              }
-            },
-            child: Container(
-              height: 45,
-              width: w - 96,
-              decoration: const BoxDecoration(
-                  // color: Colors.white,
-                  ),
-              child: Center(
-                child: Text(
-                  "Next",
-                  style: TextStyle(
-                    fontFamily: "Satoshi",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Provider.of<ProfileSectionProvider>(context)
+      child: isSetProfileButtonLoading
+          ? Center(
+              child: CircularProgressIndicator(color: kFloatingbtnColor),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Material(
+                color:
+                    Provider.of<ProfileSectionProvider>(context, listen: true)
                             .getfirstName
                             .isNotEmpty
-                        ? Colors.black
-                        : Color.fromRGBO(172, 172, 172, 1),
+                        ? kFloatingbtnColor
+                        : Color.fromRGBO(62, 62, 62, 1),
+                borderRadius: BorderRadius.circular(20),
+                child: InkWell(
+                  onTap: () async {
+                    if (Provider.of<ProfileSectionProvider>(context,
+                            listen: false)
+                        .getfirstName
+                        .isNotEmpty) {
+                      setState(() {
+                        isSetProfileButtonLoading = true;
+                      });
+                      var result = await apiService.updateProfile(
+                          Provider.of<PhomeNumberSectionProvider>(context,
+                                  listen: false)
+                              .getPhoneNumber,
+                          Provider.of<ProfileSectionProvider>(context,
+                                      listen: false)
+                                  .getfirstName +
+                              Provider.of<ProfileSectionProvider>(context,
+                                      listen: false)
+                                  .getlastName,
+                          Provider.of<ProfileSectionProvider>(context,
+                                  listen: false)
+                              .getbase64Dp);
+                      setState(() {
+                        isSetProfileButtonLoading = false;
+                      });
+                      if (result == 204) {
+                        await getPrefsUpdate(
+                            Provider.of<ProfileSectionProvider>(context,
+                                        listen: false)
+                                    .getfirstName +
+                                Provider.of<ProfileSectionProvider>(context,
+                                        listen: false)
+                                    .getlastName,
+                            Provider.of<ProfileSectionProvider>(context,
+                                    listen: false)
+                                .getbase64Dp);
+                        pageController.animateToPage(2,
+                            duration: const Duration(milliseconds: 600),
+                            curve: Curves.easeIn);
+                      } else {
+                        pageController.animateToPage(1,
+                            duration: const Duration(milliseconds: 600),
+                            curve: Curves.easeIn);
+                      }
+                    }
+                  },
+                  child: Container(
+                    height: 45,
+                    width: w - 96,
+                    decoration: const BoxDecoration(
+                        // color: Colors.white,
+                        ),
+                    child: Center(
+                      child: Text(
+                        "Next",
+                        style: TextStyle(
+                          fontFamily: "Satoshi",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Provider.of<ProfileSectionProvider>(context)
+                                  .getfirstName
+                                  .isNotEmpty
+                              ? Colors.black
+                              : Color.fromRGBO(172, 172, 172, 1),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 

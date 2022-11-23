@@ -1,7 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zupe/constant/constant.dart';
 import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
+import 'package:zupe/service/apiService.dart';
 
 class SetProfileSection extends StatefulWidget {
   SetProfileSection({
@@ -16,6 +22,25 @@ class _SetProfileSectionState extends State<SetProfileSection> {
   TextEditingController firstName = TextEditingController();
 
   TextEditingController lastName = TextEditingController();
+  var _imageurl;
+  File? image;
+  var imagepath;
+
+  Future pickImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      return;
+    }
+    List<int> imageBytes = await image.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    var imageTemporary = File(image.path);
+    Provider.of<ProfileSectionProvider>(context, listen: false).setbase64Dp =
+        base64Image;
+    setState(() {
+      imagepath = image.path;
+      this.image = imageTemporary;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +115,33 @@ class _SetProfileSectionState extends State<SetProfileSection> {
       ),
       Stack(
         children: [
-          Container(
-            height: 70,
-            width: 70,
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(208, 208, 208, 1),
-                borderRadius: BorderRadius.circular(40)),
-            child: Center(
-              child: Image.asset(
-                "assets/icons/profile.png",
-                color: Color.fromRGBO(69, 69, 69, 1),
-                height: 35,
-              ),
-            ),
-          ),
+          image == null
+              ? InkWell(
+                  onTap: () {
+                    setState(() {
+                      pickImage();
+                    });
+                  },
+                  child: Container(
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(208, 208, 208, 1),
+                        borderRadius: BorderRadius.circular(40)),
+                    child: Center(
+                      child: Image.asset(
+                        "assets/icons/profile.png",
+                        color: Color.fromRGBO(69, 69, 69, 1),
+                        height: 35,
+                      ),
+                    ),
+                  ),
+                )
+              : Image.file(
+                  image!,
+                  width: 140,
+                  height: 140,
+                ),
           Positioned(
             bottom: 0,
             right: 0,

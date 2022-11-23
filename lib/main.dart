@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zupe/PreHomePage.dart';
 import 'package:zupe/pages/FirstPage.dart';
 import 'package:zupe/pages/homePage/homePagemodified.dart';
 import 'package:zupe/pages/onboardingPages/onboardingPages.dart';
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const OnBoardingPage());
-    // home: FirstPage());
+        // home: const OnBoardingPage());
+        // home: FirstPage());
+        home: const PreHomePage());
   }
 }

@@ -79,6 +79,24 @@ class ProfileSectionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _base64Dp = "";
+
+  String get getbase64Dp => _base64Dp;
+
+  set setbase64Dp(String base64Dp) {
+    _base64Dp = base64Dp;
+    notifyListeners();
+  }
+
+  String _userName = "";
+
+  String get getuserName => _userName;
+
+  set setuserName(String userName) {
+    _userName = userName;
+    notifyListeners();
+  }
+
   String _lastName = "";
 
   String get getlastName => _lastName;

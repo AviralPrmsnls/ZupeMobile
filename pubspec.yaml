@@ -52,6 +52,7 @@ dependencies:
   permission_handler: ^10.2.0
   webviewx: ^0.2.1
   shared_preferences: ^2.0.15
+  image_picker: ^0.8.6
 
 
 
