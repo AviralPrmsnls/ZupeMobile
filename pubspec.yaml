@@ -50,6 +50,8 @@ dependencies:
   aligned_dialog: ^0.0.6
   flutter_contacts: ^1.1.5+1
   permission_handler: ^10.2.0
+  webviewx: ^0.2.1
+  shared_preferences: ^2.0.15
 
 
 

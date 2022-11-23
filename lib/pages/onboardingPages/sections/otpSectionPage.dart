@@ -2,6 +2,7 @@ import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx/webviewx.dart';
 import 'package:zupe/constant/constant.dart';
 import 'package:zupe/pages/homePage/homePagemodified.dart';
 import 'package:country_calling_code_picker/picker.dart';
@@ -46,9 +47,8 @@ class _OtpSectionState extends State<OtpSection> {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    return Provider.of<OtpSectionProvider>(
-      context,
-    ).getOtpRequestSent
+    return Provider.of<OtpSectionProvider>(context, listen: false)
+            .getOtpRequestSent
         ? otpRetrievalSection()
         : EnterNumberForm(w, context);
     ;
@@ -89,7 +89,9 @@ class _OtpSectionState extends State<OtpSection> {
                     height: 5,
                   ),
                   Text(
-                    "+91 ${phoneNumber.text.substring(0, 4)} ${phoneNumber.text.substring(4, 8)} ${phoneNumber.text.substring(8, 10)}",
+                    Provider.of<PhomeNumberSectionProvider>(context,
+                            listen: false)
+                        .getPhoneNumber,
                     style: const TextStyle(
                         fontFamily: "Satoshi",
                         fontSize: 24,
@@ -285,57 +287,65 @@ class _OtpSectionState extends State<OtpSection> {
             height: 46,
             width: w - 96,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 46,
-                  width: 72,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      gradient: const RadialGradient(
-                          radius: 2,
-                          center: Alignment.topLeft,
-                          // begin: Alignment.topLeft,
-                          // end: Alignment.bottomRight,
-                          colors: [
-                            Color.fromRGBO(173, 255, 0, 1),
-                            Color.fromRGBO(58, 62, 50, 1)
-                          ])),
-                  child: Center(
-                    child: Container(
-                        height: 42,
-                        width: 68,
-                        decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color.fromRGBO(19, 19, 19, .6),
-                                offset: Offset(
-                                  2,
-                                  5,
+                if (!Provider.of<OtpSectionProvider>(context, listen: false)
+                    .getPhoneTextField)
+                  Container(
+                    height: 46,
+                    width: 72,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        gradient: const RadialGradient(
+                            radius: 2,
+                            center: Alignment.topLeft,
+                            // begin: Alignment.topLeft,
+                            // end: Alignment.bottomRight,
+                            colors: [
+                              Color.fromRGBO(173, 255, 0, 1),
+                              Color.fromRGBO(58, 62, 50, 1)
+                            ])),
+                    child: Center(
+                      child: Container(
+                          height: 42,
+                          width: 68,
+                          decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color.fromRGBO(19, 19, 19, .6),
+                                  offset: Offset(
+                                    2,
+                                    5,
+                                  ),
+                                  blurRadius: 10.0,
+                                  spreadRadius: 4.0,
                                 ),
-                                blurRadius: 10.0,
-                                spreadRadius: 4.0,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(5),
-                            color: const Color.fromRGBO(21, 23, 22, 1)),
-                        child: Center(
-                          child: Text(
-                            _selectedCountry.callingCode,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Satoshi",
-                                color: Colors.white),
-                          ),
-                        )),
+                              ],
+                              borderRadius: BorderRadius.circular(5),
+                              color: const Color.fromRGBO(21, 23, 22, 1)),
+                          child: Center(
+                            child: Text(
+                              _selectedCountry.callingCode,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "Satoshi",
+                                  color: Colors.white),
+                            ),
+                          )),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
+                if (!Provider.of<OtpSectionProvider>(context, listen: false)
+                    .getPhoneTextField)
+                  const SizedBox(
+                    width: 20,
+                  ),
                 Container(
                   height: 46,
-                  width: w - 188,
+                  width: Provider.of<OtpSectionProvider>(context, listen: false)
+                          .getPhoneTextField
+                      ? w - 100
+                      : w - 188,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
                       gradient: const RadialGradient(
@@ -350,7 +360,11 @@ class _OtpSectionState extends State<OtpSection> {
                   child: Center(
                     child: Container(
                         height: 42,
-                        width: w - 192,
+                        width: Provider.of<OtpSectionProvider>(context,
+                                    listen: false)
+                                .getPhoneTextField
+                            ? w - 104
+                            : w - 192,
                         padding: EdgeInsets.only(bottom: 4),
                         decoration: BoxDecoration(
                             boxShadow: const [
@@ -368,46 +382,64 @@ class _OtpSectionState extends State<OtpSection> {
                             color: const Color.fromRGBO(21, 23, 22, 1)),
                         child: Center(
                             child: SizedBox(
-                          child: TextFormField(
-                            controller: phoneNumber,
-                            onChanged: (value) {
-                              if (value.length == 10) {
-                                Provider.of<OtpSectionProvider>(context,
-                                        listen: false)
-                                    .setMobileNumberEntered = true;
-                                Provider.of<PhomeNumberSectionProvider>(context,
-                                            listen: false)
-                                        .setPhoneNumber =
-                                    _selectedCountry.callingCode + value;
-                              } else {
-                                Provider.of<OtpSectionProvider>(context,
-                                        listen: false)
-                                    .setMobileNumberEntered = false;
-                              }
-                            },
-                            textAlignVertical: TextAlignVertical.center,
-                            cursorColor: Colors.white,
-                            keyboardType: TextInputType.phone,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Satoshi",
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                            decoration: const InputDecoration(
-                                hintStyle: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Satoshi",
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white38),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                contentPadding: EdgeInsets.only(
-                                    left: 15, bottom: 11, top: 11, right: 15),
-                                hintText: "Phone number"),
-                          ),
+                          child: Provider.of<OtpSectionProvider>(context,
+                                      listen: false)
+                                  .getPhoneTextField
+                              ? Text(
+                                  Provider.of<PhomeNumberSectionProvider>(
+                                          context,
+                                          listen: false)
+                                      .getPhoneNumber,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontFamily: "Satoshi",
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white),
+                                )
+                              : TextFormField(
+                                  controller: phoneNumber,
+                                  onChanged: (value) {
+                                    if (value.length == 10) {
+                                      Provider.of<OtpSectionProvider>(context,
+                                              listen: false)
+                                          .setMobileNumberEntered = true;
+                                      Provider.of<PhomeNumberSectionProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .setPhoneNumber =
+                                          _selectedCountry.callingCode + value;
+                                    } else {
+                                      Provider.of<OtpSectionProvider>(context,
+                                              listen: false)
+                                          .setMobileNumberEntered = false;
+                                    }
+                                  },
+                                  textAlignVertical: TextAlignVertical.center,
+                                  cursorColor: Colors.white,
+                                  keyboardType: TextInputType.phone,
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: "Satoshi",
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white),
+                                  decoration: const InputDecoration(
+                                      hintStyle: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: "Satoshi",
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white38),
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                      disabledBorder: InputBorder.none,
+                                      contentPadding: EdgeInsets.only(
+                                          left: 15,
+                                          bottom: 11,
+                                          top: 11,
+                                          right: 15),
+                                      hintText: "Phone number"),
+                                ),
                         ))),
                   ),
                 ),

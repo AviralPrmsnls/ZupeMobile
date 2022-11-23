@@ -10,6 +10,15 @@ class OtpSectionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isPhoneTextField = false;
+
+  bool get getPhoneTextField => _isPhoneTextField;
+
+  set setPhoneTextField(bool isPhoneTextField) {
+    _isPhoneTextField = isPhoneTextField;
+    notifyListeners();
+  }
+
   bool _isOtpRequestSent = false;
 
   bool get getOtpRequestSent => _isOtpRequestSent;
@@ -36,6 +45,26 @@ class PhomeNumberSectionProvider extends ChangeNotifier {
 
   set setPhoneNumber(String phoneNumber) {
     _phoneNumber = phoneNumber;
+    notifyListeners();
+  }
+}
+
+class CaptchaSectionProvider extends ChangeNotifier {
+  String _Captcha = "";
+
+  String get getCaptcha => _Captcha;
+
+  set setCaptcha(String Captcha) {
+    _Captcha = Captcha;
+    notifyListeners();
+  }
+
+  bool _isCaptcScreen = false;
+
+  bool get getCaptcScreen => _isCaptcScreen;
+
+  set setCaptcScreen(bool isCaptcScreen) {
+    _isCaptcScreen = isCaptcScreen;
     notifyListeners();
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:zupe/provider/onboardingProvider/onBoardingProvider.dart';
+import 'package:zupe/service/apiService.dart';
 
 import '../pages/onboardingPages/onboardingPages.dart';
 
@@ -14,6 +15,7 @@ class EnterOTP extends StatefulWidget {
   State<EnterOTP> createState() => _EnterOTPState();
 }
 
+ApiService apiService = ApiService();
 getOtp(BuildContext context) async {
   Provider.of<OtpSectionProvider>(context, listen: false).setOtpReceived =
       firstDigit.text +
@@ -23,9 +25,27 @@ getOtp(BuildContext context) async {
           fifthDigit.text +
           sixthDigit.text;
 
-  await Future.delayed(Duration(milliseconds: 200));
-  pageController.animateToPage(1,
-      duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
+  var result = await apiService.verifyOtp(
+      Provider.of<PhomeNumberSectionProvider>(context, listen: false)
+          .getPhoneNumber,
+      Provider.of<OtpSectionProvider>(context, listen: false).getOtpReceived);
+  if (result == 201) {
+    pageController.animateToPage(1,
+        duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
+  } else {
+    Provider.of<OtpSectionProvider>(context, listen: false)
+        .setMobileNumberEntered = false;
+    Provider.of<PhomeNumberSectionProvider>(context, listen: false)
+        .setPhoneNumber = "";
+    Provider.of<OtpSectionProvider>(context, listen: false).setOtpRequestSent =
+        false;
+    Provider.of<CaptchaSectionProvider>(context, listen: false).setCaptcha = "";
+    Provider.of<CaptchaSectionProvider>(context, listen: false).setCaptcScreen =
+        false;
+
+    pageController.animateToPage(0,
+        duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
+  }
 }
 
 String Otp = '';
